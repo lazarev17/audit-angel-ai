@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Audit Angel AI — Every record audited, not a 2% sample</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F6F7F4}
+a{color:#0B5E57}a:hover{color:#08433E}
+.v{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.4;font-weight:500;color:#7A3E00;background:#FCEBD2;border-radius:4px;padding:1px 6px;vertical-align:middle;letter-spacing:0}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#0B5E57;margin:0}
+.h2{font-size:40px;line-height:1.15;font-weight:600;letter-spacing:-.01em;margin:0;color:#0E1B2B}
+.lead{font-size:18px;line-height:1.6;color:#3D4A5A;margin:0}
+.card{background:#FFFFFF;border:1px solid #DDE2DA;border-radius:12px;padding:28px;display:flex;flex-direction:column;gap:12px}
+.card h3{margin:0;font-size:20px;line-height:1.3;color:#0E1B2B;font-weight:600}
+.card p{margin:0;font-size:16px;line-height:1.6;color:#3D4A5A}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:8px;font-weight:600;font-size:16px;text-decoration:none}
+.btn-p{background:#0B5E57;color:#FFFFFF}.btn-p:hover{background:#08433E;color:#FFFFFF}
+.btn-s{background:transparent;color:#0E1B2B;border:1px solid #9AA5B1}.btn-s:hover{color:#0E1B2B;border-color:#0E1B2B}
+.mono{font-family:'IBM Plex Mono',monospace}
+.row{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:0;border-top:1px solid #DDE2DA}
+.row div{padding:16px 20px;font-size:16px;line-height:1.5;color:#3D4A5A}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:14px;font-weight:500;color:#0E1B2B}
+.field input,.field select{min-height:46px;border:1px solid #9AA5B1;border-radius:8px;padding:0 12px;font:inherit;font-size:16px;background:#FFFFFF;color:#0E1B2B}
+@media (max-width:760px){.h2{font-size:30px}.row{grid-template-columns:1fr}.row div:first-child{font-weight:600;color:#0E1B2B;padding-bottom:0}}
+</style>
+<style>html{scroll-behavior:smooth}*,*::before,*::after{box-sizing:border-box}</style>
+</head>
+<body>
+<div style="font-family: 'IBM Plex Sans', system-ui, sans-serif; color: #0E1B2B; background: #F6F7F4; min-height: 100vh">
+
+<!-- NAV -->
+<header style="border-bottom: 1px solid #DDE2DA; background: #F6F7F4">
+<div style="max-width: 1200px; margin: 0 auto; padding: 18px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<a href="#top" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #0E1B2B">
+<svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><circle cx="14" cy="14" r="12.5" stroke="#0B5E57" stroke-width="2"></circle><path d="M8.5 14.5l3.5 3.5 7.5-8" stroke="#0B5E57" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<span style="font-weight: 700; font-size: 18px">Audit Angel <span style="color: #0B5E57">AI</span></span>
+</a>
+<nav aria-label="Main" style="display: flex; flex-wrap: wrap; align-items: center; gap: 24px; font-size: 15px">
+<a href="#how" style="color: #3D4A5A; text-decoration: none">How it works</a>
+<a href="#security" style="color: #3D4A5A; text-decoration: none">Security &amp; IG</a>
+<a href="#pricing" style="color: #3D4A5A; text-decoration: none">Pilot</a>
+<a href="https://cqc.audit-angel.co.uk" style="color: #3D4A5A; text-decoration: none">Single site? Free CQC toolkit →</a>
+<a href="#book" class="btn btn-p" style="min-height: 44px; font-size: 15px">Book a pilot call</a>
+</nav>
+</div>
+</header>
+
+<!-- HERO -->
+<section id="top" style="max-width: 1200px; margin: 0 auto; padding: 88px 32px 72px; display: flex; flex-wrap: wrap; gap: 56px; align-items: center">
+<div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+<p class="eyebrow">For clinical directors of GP federations, urgent care, care groups &amp; clinic chains</p>
+<h1 style="margin: 0; font-size: 60px; line-height: 1.05; letter-spacing: -.02em; font-weight: 700">Every record audited.<br><span style="color: #0B5E57">Not a 2% sample.</span></h1>
+<p class="lead" style="font-size: 20px">Audit Angel checks 100% of consultations and care notes against NICE and CQC standards, every week, so you find the unsafe pattern before a patient or an inspector does. Patient identifiers are removed inside your environment before any AI sees the text.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px">
+<a href="#book" class="btn btn-p">Book a Full-Record Audit Pilot</a>
+<a href="#sample" class="btn btn-s">See a sample finding ↓</a>
+</div>
+<p style="margin: 0; font-size: 14px; color: #5A6675">One month of your records · fixed price · findings report in 2 weeks <span class="v">VERIFY timeline</span></p>
+</div>
+<div style="flex: 1 1 380px; min-width: 0">
+<div class="card" style="padding: 28px; gap: 18px; box-shadow: 0 1px 0 #DDE2DA">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap">
+<span class="mono" style="font-size: 13px; color: #5A6675">Last month · 12 sites</span>
+<span class="mono" style="font-size: 12px; color: #5A6675; border: 1px solid #DDE2DA; border-radius: 4px; padding: 2px 8px">Illustrative example</span>
+</div>
+<div>
+<div style="font-size: 14px; color: #5A6675; margin-bottom: 8px">Manual sample</div>
+<div style="height: 14px; background: #ECEFEA; border-radius: 4px; overflow: hidden"><div style="width: 2%; min-width: 6px; height: 100%; background: #9AA5B1"></div></div>
+<div class="mono" style="font-size: 13px; margin-top: 6px; color: #5A6675">368 of 18,420 records</div>
+</div>
+<div>
+<div style="font-size: 14px; color: #5A6675; margin-bottom: 8px">Audit Angel</div>
+<div style="height: 14px; background: #0B5E57; border-radius: 4px"></div>
+<div class="mono" style="font-size: 13px; margin-top: 6px; color: #0B5E57">18,420 of 18,420 records</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; border-top: 1px solid #DDE2DA; padding-top: 18px">
+<div><div style="font-size: 28px; font-weight: 700">312</div><div style="font-size: 13px; color: #5A6675">flagged for review</div></div>
+<div><div style="font-size: 28px; font-weight: 700; color: #A3470A">41</div><div style="font-size: 13px; color: #5A6675">high-risk</div></div>
+<div><div style="font-size: 28px; font-weight: 700">9</div><div style="font-size: 13px; color: #5A6675">clinicians to feed back to</div></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- TRUST STRIP -->
+<section style="border-top: 1px solid #DDE2DA; border-bottom: 1px solid #DDE2DA; background: #FFFFFF">
+<div style="max-width: 1200px; margin: 0 auto; padding: 20px 32px; display: flex; flex-wrap: wrap; gap: 12px 32px; align-items: center; justify-content: center; font-size: 15px; color: #3D4A5A; font-weight: 500">
+<span>ISO/IEC 27001</span><span aria-hidden="true" style="color: #C3CAC0">·</span>
+<span>NHS DSPT</span><span aria-hidden="true" style="color: #C3CAC0">·</span>
+<span>Cyber Essentials</span><span aria-hidden="true" style="color: #C3CAC0">·</span>
+<span>DCB0129 clinical safety case</span><span aria-hidden="true" style="color: #C3CAC0">·</span>
+<span>UK data residency</span>
+<span class="v">VERIFY each badge is current</span>
+</div>
+</section>
+
+<!-- CONTEXT / TRIGGER -->
+<section style="max-width: 1200px; margin: 0 auto; padding: 96px 32px 32px; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 16px; max-width: 760px">
+<p class="eyebrow">Sound familiar?</p>
+<h2 class="h2">You are responsible for the safety of thousands of consultations. You can see about 2% of them.</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px">
+<div class="card"><h3>The inspection is booked</h3><p>Someone is pulling records into a spreadsheet by hand, hoping the sample they picked tells a good story.</p></div>
+<div class="card"><h3>The incident review</h3><p>It turns out the same missed safety-netting happened dozens of times last quarter. None of it was in the sample.</p></div>
+<div class="card"><h3>The evening audits</h3><p>Your clinical leads review 1 case in 50 after their shifts, and still can't tell you how the other 49 went.</p></div>
+</div>
+</section>
+
+<!-- VALUE BY CRITERIA -->
+<section style="max-width: 1200px; margin: 0 auto; padding: 72px 32px; display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 16px; max-width: 760px">
+<p class="eyebrow">What changes</p>
+<h2 class="h2">From a quarterly sample to a weekly view of every record</h2>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #DDE2DA; border-radius: 12px; overflow: hidden">
+<div class="row" style="border-top: 0; background: #ECEFEA"><div style="font-weight: 600; color: #0E1B2B"></div><div style="font-weight: 600; color: #0E1B2B">Manual sampling today</div><div style="font-weight: 600; color: #0B5E57">With Audit Angel</div></div>
+<div class="row"><div style="font-weight: 600; color: #0E1B2B">Records reviewed</div><div>1–5% sample <span class="v">VERIFY</span></div><div style="color: #0E1B2B; font-weight: 600">100%, every week</div></div>
+<div class="row"><div style="font-weight: 600; color: #0E1B2B">Consultation to finding</div><div>Next audit cycle, often months later</div><div style="color: #0E1B2B; font-weight: 600">Within 7 days <span class="v">VERIFY</span></div></div>
+<div class="row"><div style="font-weight: 600; color: #0E1B2B">Clinician time</div><div>Reading and scoring every sampled case</div><div style="color: #0E1B2B; font-weight: 600">Reviewing flagged cases only</div></div>
+<div class="row"><div style="font-weight: 600; color: #0E1B2B">Agreement with clinician review</div><div>Varies by reviewer</div><div style="color: #0E1B2B; font-weight: 600">95%, measured each run <span class="v">VERIFY internal validation</span></div></div>
+<div class="row"><div style="font-weight: 600; color: #0E1B2B">CQC evidence</div><div>Assembled by hand before inspection</div><div style="color: #0E1B2B; font-weight: 600">Built continuously, per quality statement</div></div>
+</div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" style="background: #0E1B2B; color: #F6F7F4">
+<div style="max-width: 1200px; margin: 0 auto; padding: 96px 32px; display: flex; flex-direction: column; gap: 48px">
+<div style="display: flex; flex-direction: column; gap: 16px; max-width: 760px">
+<p class="eyebrow" style="color: #7FD1C7">How it works</p>
+<h2 class="h2" style="color: #FFFFFF">Connect. Clean. Check. Act.</h2>
+<p class="lead" style="color: #C9D2DC">Four steps your team can explain to a Caldicott Guardian in one breath.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px">
+<div style="border: 1px solid #2A3A4E; border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 12px"><span class="mono" style="color: #7FD1C7; font-size: 14px">01 · Connect</span><h3 style="margin: 0; font-size: 20px; color: #FFFFFF">Start from exports you already run</h3><p style="margin: 0; color: #C9D2DC; line-height: 1.6">EMIS, SystmOne, Adastra or your care system's CSV. No integration project to begin. Live connections come later, set up by our team.</p></div>
+<div style="border: 1px solid #2A3A4E; border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 12px"><span class="mono" style="color: #7FD1C7; font-size: 14px">02 · Clean</span><h3 style="margin: 0; font-size: 20px; color: #FFFFFF">Identifiers removed in your environment</h3><p style="margin: 0; color: #C9D2DC; line-height: 1.6">A privacy filter running on your side strips names, NHS numbers, addresses and dates. We measure and publish its accuracy for every deployment.</p></div>
+<div style="border: 1px solid #2A3A4E; border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 12px"><span class="mono" style="color: #7FD1C7; font-size: 14px">03 · Check</span><h3 style="margin: 0; font-size: 20px; color: #FFFFFF">Every record against your standards</h3><p style="margin: 0; color: #C9D2DC; line-height: 1.6">NICE, RCGP, UKHSA and the CQC quality statements, plus your own local rules and formularies, applied to 100% of cases.</p></div>
+<div style="border: 1px solid #2A3A4E; border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 12px"><span class="mono" style="color: #7FD1C7; font-size: 14px">04 · Act</span><h3 style="margin: 0; font-size: 20px; color: #FFFFFF">Findings become tasks, not homework</h3><p style="margin: 0; color: #C9D2DC; line-height: 1.6">A prioritised task list, per-clinician feedback and a CQC evidence pack. The AI flags. Your clinicians decide.</p></div>
+</div>
+</div>
+</section>
+
+<!-- SAMPLE FINDING (taste of Aha) -->
+<section id="sample" style="max-width: 1200px; margin: 0 auto; padding: 96px 32px; display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 16px; max-width: 760px">
+<p class="eyebrow">A sample finding</p>
+<h2 class="h2">One record, start to finish</h2>
+<p class="lead">Fictional patient. This is what a single flagged case looks like at each step.</p>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px">
+<div class="card" style="gap: 14px">
+<span class="mono" style="font-size: 13px; color: #5A6675">1 · Raw note (never leaves your environment)</span>
+<p class="mono" style="font-size: 14px; line-height: 1.7; color: #0E1B2B; margin: 0"><mark style="background: #FCEBD2; color: #0E1B2B">Mrs Eleanor Vance</mark>, NHS <mark style="background: #FCEBD2; color: #0E1B2B">485 777 3456</mark>, <mark style="background: #FCEBD2; color: #0E1B2B">14 Oak Lane</mark>. 78F. Methotrexate 15 mg weekly. Repeat issued <mark style="background: #FCEBD2; color: #0E1B2B">02/10/2026</mark>. Last FBC/LFT <mark style="background: #FCEBD2; color: #0E1B2B">11/06/2026</mark>. No bloods requested.</p>
+</div>
+<div class="card" style="gap: 14px">
+<span class="mono" style="font-size: 13px; color: #5A6675">2 · After the privacy filter</span>
+<p class="mono" style="font-size: 14px; line-height: 1.7; color: #0E1B2B; margin: 0"><span style="background: #DCEFEC; color: #08433E; padding: 0 4px; border-radius: 3px">[PATIENT]</span>, NHS <span style="background: #DCEFEC; color: #08433E; padding: 0 4px; border-radius: 3px">[NHS_NO]</span>, <span style="background: #DCEFEC; color: #08433E; padding: 0 4px; border-radius: 3px">[ADDRESS]</span>. 78F. Methotrexate 15 mg weekly. Repeat issued <span style="background: #DCEFEC; color: #08433E; padding: 0 4px; border-radius: 3px">[DAY 0]</span>. Last FBC/LFT <span style="background: #DCEFEC; color: #08433E; padding: 0 4px; border-radius: 3px">[DAY −113]</span>. No bloods requested.</p>
+</div>
+<div class="card" style="gap: 14px; border-color: #E9B77C">
+<span class="mono" style="font-size: 13px; color: #5A6675">3 · Audit result</span>
+<div style="display: flex; align-items: center; gap: 8px"><span style="width: 10px; height: 10px; border-radius: 50%; background: #A3470A" aria-hidden="true"></span><strong style="font-size: 16px">High-risk drug monitoring: flagged</strong></div>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #3D4A5A">Repeat issued with monitoring bloods overdue (over 12 weeks). <span class="v">VERIFY standard + interval</span></p>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #3D4A5A"><strong style="color: #0E1B2B">CQC:</strong> Safe · Medicines optimisation</p>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #3D4A5A"><strong style="color: #0E1B2B">Suggested action:</strong> recall for FBC/LFT before next issue.</p>
+<p class="mono" style="margin: 0; font-size: 13px; color: #0B5E57">Status: awaiting clinician review</p>
+</div>
+</div>
+</section>
+
+<!-- WHAT'S WRONG WITH THE CURRENT WAY -->
+<section style="background: #ECEFEA">
+<div style="max-width: 1200px; margin: 0 auto; padding: 96px 32px; display: flex; flex-wrap: wrap; gap: 48px">
+<div style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<p class="eyebrow">Why the usual way keeps failing</p>
+<h2 class="h2">Sampling was built for paper. Your risk isn't.</h2>
+</div>
+<div style="flex: 999 1 560px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px">
+<div class="card"><h3>Small samples miss rare harms</h3><p>The serious, uncommon pattern is exactly the one a 1-in-50 sample is least likely to catch.</p></div>
+<div class="card"><h3>Findings arrive too late</h3><p>By the time a quarterly audit reports, the same habit has repeated hundreds of times.</p></div>
+<div class="card"><h3>Audit software still needs you to pick and score</h3><p>Most tools digitise the spreadsheet. A clinician still chooses the cases and reads every one.</p></div>
+<div class="card"><h3>General AI tools can't touch patient records</h3><p>Pasting notes into a chatbot fails information governance on day one, and should.</p></div>
+</div>
+</div>
+</section>
+
+<!-- FEAR REDUCTION -->
+<section id="security" style="max-width: 1200px; margin: 0 auto; padding: 96px 32px; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 16px; max-width: 760px">
+<p class="eyebrow">Security, safety &amp; IG</p>
+<h2 class="h2">The questions your Caldicott Guardian will ask, answered up front</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px">
+<div class="card"><h3>"Does patient data leave our control?"</h3><p>Identifiers are removed inside your environment first. The AI checker runs under zero-data-retention terms: nothing stored, nothing used for training. <span class="v">VERIFY contract terms + region</span> You stay the data controller; we act as processor.</p></div>
+<div class="card"><h3>"What if the AI gets it wrong?"</h3><p>It never decides. Every flag goes to a clinician. Each run includes a clinician-checked sample, and we publish the agreement rate to you.</p></div>
+<div class="card"><h3>"Our IT team has no capacity."</h3><p>Our setup team does the work. The pilot runs from exports you already produce, so there's no integration project to approve.</p></div>
+<div class="card"><h3>"IG sign-off will take months."</h3><p>You get a DPIA template, DTAC pack, clinical safety case and hazard log on day one, ready for your IG and clinical safety leads.</p></div>
+<div class="card"><h3>"What if it finds nothing useful?"</h3><p>The pilot is fixed price with a defined output. If the findings don't justify going further, you keep the report and stop there.</p></div>
+<div class="card"><h3>"Is this a medical device?"</h3><p>Audit Angel supports governance review; clinicians make every clinical decision. <span class="v">VERIFY regulatory position before publishing</span></p></div>
+</div>
+</section>
+
+<!-- SECTORS -->
+<section style="background: #FFFFFF; border-top: 1px solid #DDE2DA; border-bottom: 1px solid #DDE2DA">
+<div style="max-width: 1200px; margin: 0 auto; padding: 96px 32px; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 16px; max-width: 760px">
+<p class="eyebrow">Where it's used</p>
+<h2 class="h2">Built for organisations with more records than reviewers</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px">
+<div class="card" style="background: #F6F7F4"><h3>Urgent care, 111 &amp; out-of-hours</h3><p>Safety-netting, red flags and onward referral checked on every contact, straight from Adastra.</p></div>
+<div class="card" style="background: #F6F7F4"><h3>GP federations &amp; PCNs</h3><p>High-risk drug monitoring, pathology follow-up and NICE adherence across every practice.</p></div>
+<div class="card" style="background: #F6F7F4"><h3>Care home &amp; home care groups</h3><p>Daily notes, MAR charts, missed visits and safeguarding triggers across every branch.</p></div>
+<div class="card" style="background: #F6F7F4"><h3>Private &amp; online clinics</h3><p>Consent, prescribing and remote safety-netting on every consultation, not a handful.</p></div>
+</div>
+</div>
+</section>
+
+<!-- STATE B -->
+<section style="max-width: 1200px; margin: 0 auto; padding: 96px 32px; display: flex; flex-wrap: wrap; gap: 48px; align-items: center">
+<div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+<p class="eyebrow">What it looks like after</p>
+<h2 class="h2">Monday's governance meeting, three months from now</h2>
+<p class="lead">The dashboard shows every site and every clinician for last week. Three issues came up, and each already has an owner. The CQC evidence pack is up to date because it updates itself. Nobody stayed late pulling records, and when the inspector asks how you know care is safe, you can show them every case, not a sample.</p>
+</div>
+<div style="flex: 1 1 340px; min-width: 0">
+<div class="card" style="gap: 14px">
+<span class="mono" style="font-size: 13px; color: #5A6675">This week · all sites</span>
+<div style="display: flex; justify-content: space-between; border-bottom: 1px solid #ECEFEA; padding-bottom: 10px"><span>Records audited</span><strong>4,612</strong></div>
+<div style="display: flex; justify-content: space-between; border-bottom: 1px solid #ECEFEA; padding-bottom: 10px"><span>Open high-risk flags</span><strong style="color: #A3470A">3</strong></div>
+<div style="display: flex; justify-content: space-between; border-bottom: 1px solid #ECEFEA; padding-bottom: 10px"><span>Assigned to a clinician</span><strong>3 of 3</strong></div>
+<div style="display: flex; justify-content: space-between"><span>CQC pack</span><strong style="color: #0B5E57">Up to date</strong></div>
+<span class="mono" style="font-size: 12px; color: #5A6675">Illustrative example</span>
+</div>
+</div>
+</section>
+
+<!-- PRICING / OFFER LADDER -->
+<section id="pricing" style="background: #ECEFEA">
+<div style="max-width: 1200px; margin: 0 auto; padding: 96px 32px; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 16px; max-width: 760px">
+<p class="eyebrow">Start small</p>
+<h2 class="h2">Prove it on one month of your own records</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; align-items: stretch">
+<div class="card">
+<span class="mono" style="font-size: 13px; color: #5A6675">Single site</span>
+<h3>Free CQC toolkit</h3>
+<p>CQC audit templates and mock inspections for one practice, home or clinic. Self-serve.</p>
+<div style="font-size: 28px; font-weight: 700">Free</div>
+<a href="https://cqc.audit-angel.co.uk" class="btn btn-s" style="margin-top: auto">Open the toolkit</a>
+</div>
+<div class="card" style="border: 2px solid #0B5E57">
+<span class="mono" style="font-size: 13px; color: #0B5E57">Recommended first step</span>
+<h3>Full-Record Audit Pilot</h3>
+<p>One month of records, one audit area you choose, run by our team from your exports. You get a findings report and a review session with your clinical leads.</p>
+<div style="font-size: 28px; font-weight: 700">[FIXED PRICE] <span class="v">PLACEHOLDER</span></div>
+<a href="#book" class="btn btn-p" style="margin-top: auto">Book a pilot call</a>
+</div>
+<div class="card">
+<span class="mono" style="font-size: 13px; color: #5A6675">Groups, 5+ sites</span>
+<h3>Continuous Audit</h3>
+<p>Weekly auditing of every record across all sites, with live connections, local rules and CQC packs maintained by our team.</p>
+<div style="font-size: 28px; font-weight: 700">[£ / site / year] <span class="v">PLACEHOLDER</span></div>
+<a href="#book" class="btn btn-s" style="margin-top: auto">Talk to us</a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- BOOK / FORM -->
+<section id="book" style="max-width: 1200px; margin: 0 auto; padding: 96px 32px; display: flex; flex-wrap: wrap; gap: 56px">
+<div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+<p class="eyebrow">Book a pilot call</p>
+<h2 class="h2">20 minutes to scope your pilot</h2>
+<p class="lead">We'll ask which audit area worries you most, which system you use and how you export today. You leave with a pilot scope and price.</p>
+<ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; color: #3D4A5A; font-size: 16px; line-height: 1.5">
+<li>No integration needed for the pilot</li>
+<li>DPIA and DTAC pack shared before any data moves</li>
+<li>Reply within one working day <span class="v">VERIFY</span></li>
+</ul>
+</div>
+<form style="flex: 999 1 520px; min-width: 0; background: #FFFFFF; border: 1px solid #DDE2DA; border-radius: 12px; padding: 32px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px">
+<div class="field"><label for="aa-name">Name</label><input id="aa-name" type="text" autocomplete="name"></div>
+<div class="field"><label for="aa-email">Work email</label><input id="aa-email" type="email" autocomplete="email"></div>
+<div class="field"><label for="aa-org">Organisation</label><input id="aa-org" type="text" autocomplete="organization"></div>
+<div class="field"><label for="aa-sites">Number of sites</label><select id="aa-sites"><option>1</option><option>2–4</option><option>5–20</option><option>21–100</option><option>100+</option></select></div>
+<div class="field" style="grid-column: 1 / -1"><label for="aa-sys">Main clinical or care system</label><select id="aa-sys"><option>EMIS Web</option><option>SystmOne</option><option>Adastra</option><option>Nourish</option><option>Birdie</option><option>Other</option></select></div>
+<button type="button" class="btn btn-p" style="grid-column: 1 / -1; border: 0; cursor: pointer; font-family: inherit">Book a 20-minute pilot call</button>
+<p style="grid-column: 1 / -1; margin: 0; font-size: 13px; color: #5A6675">We use your details only to arrange this call. <a href="#privacy">Privacy notice</a></p>
+</form>
+</section>
+
+<!-- FOOTER -->
+<footer style="background: #0E1B2B; color: #C9D2DC">
+<div style="max-width: 1200px; margin: 0 auto; padding: 48px 32px; display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; align-items: center; font-size: 14px">
+<span>Audit Angel is built by Codex Software <span class="v">VERIFY legal entity</span></span>
+<div style="display: flex; flex-wrap: wrap; gap: 24px">
+<a href="https://cqc.audit-angel.co.uk" style="color: #C9D2DC">CQC toolkit</a>
+<a href="https://codex-soft.com" style="color: #C9D2DC">Need custom healthcare engineering? Codex →</a>
+<a id="privacy" href="#privacy" style="color: #C9D2DC">Privacy</a>
+</div>
+</div>
+</footer>
+
+</div>
+</body>
+</html>
