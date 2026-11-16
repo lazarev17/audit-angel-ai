@@ -7,7 +7,7 @@
 <meta name="description" content="Audit Angel checks 100% of consultations and care notes against NICE and CQC standards every week. Identifiers removed in your environment before any AI sees the text.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --navy:#01517D; --navy-2:#013A5A; --teal:#01C6D0; --teal-2:#33C8C1; --blue:#119BD2;
@@ -85,7 +85,7 @@ a{color:var(--accent)}a:hover{color:var(--navy)}
 .tag{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--accent);background:#E3F6F7;border-radius:999px;padding:4px 12px;width:max-content}
 
 /* ===== App mock (AI audit) ===== */
-.app{font-family:'Inter',system-ui,sans-serif;background:#F4F5F7;border:1px solid #DADFE4;border-radius:14px;overflow:hidden;box-shadow:0 18px 40px rgba(1,81,125,.14);color:#1F2329}
+.app{font-family:'Roboto',system-ui,sans-serif;background:#F4F5F7;border:1px solid #DADFE4;border-radius:14px;overflow:hidden;box-shadow:0 18px 40px rgba(1,81,125,.14);color:#1F2329}
 .app-bar{display:flex;align-items:center;gap:22px;white-space:nowrap;background:#fff;border-bottom:1px solid #E4E7EB;padding:12px 20px;font-size:13.5px;font-weight:600}
 .app-bar .dots{display:flex;gap:6px;margin-right:4px}.app-bar .dots i{width:10px;height:10px;border-radius:50%;display:block}
 .app-bar a{color:#1F2329;text-decoration:none}.app-bar .on{box-shadow:inset 0 -2px 0 var(--app-teal);padding-bottom:4px}
@@ -128,6 +128,46 @@ a{color:var(--accent)}a:hover{color:var(--navy)}
 .mini{font-size:11.5px;color:#888}
 .illus{font-size:12px;color:var(--muted);margin-top:10px}
 
+
+/* ===== Co-Auditor mock ===== */
+.app .org{border:1px solid #D6DBE0;border-radius:999px;padding:5px 12px;font-weight:600;font-size:12.5px;margin-right:8px}
+.ca-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;background:#fff;border-radius:6px;box-shadow:0 2px 10px rgba(0,0,0,.06);padding:16px 20px;margin-bottom:16px}
+.casenav{display:inline-flex;align-items:center;gap:10px;font-size:14px}.casenav .nb{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:4px;background:#EEF0F2;color:#9AA1A9}
+.ca-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:16px;align-items:start}
+.ca-form{background:#EEF9FB;border:1px solid #9ADADE;border-radius:6px;overflow-y:auto;max-height:640px;transition:opacity .3s;scrollbar-width:thin}
+.sbox.dec .why,.sbox.dec .std,.sbox.dec .sm-btn{display:none}.sbox.dec .acts{margin-top:2px}.sbox.dec .top{margin-bottom:0}
+.ca-form.thinking{opacity:.55}
+.ca-sec{background:#D6F0F3;padding:12px 16px;font-weight:600;font-size:13.5px}
+.ca-q{padding:12px 16px 14px;border-top:1px solid #DCEFF2}
+.ca-q .qt{font-weight:600;font-size:13px;margin-bottom:8px}
+.radios{display:flex;gap:20px;flex-wrap:wrap}
+.radios label{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;cursor:pointer;border-radius:999px;padding:2px 6px 2px 2px}
+.radios input{appearance:none;-webkit-appearance:none;margin:0;width:18px;height:18px;border:2px solid #6B7280;border-radius:50%;display:grid;place-items:center;cursor:pointer;background:#fff}
+.radios input:checked{border-color:#0A8F9C}.radios input:checked::after{content:"";width:8px;height:8px;border-radius:50%;background:#0A8F9C}
+.radios input:disabled{cursor:default}
+.radios label.sug{background:#fff;box-shadow:0 0 0 1.5px #4FC3C9 inset;outline:1.5px dashed #4FC3C9;outline-offset:2px}
+.sbox{display:none;margin-top:10px;background:#fff;border:1px solid #CDEDEF;border-left:3px solid #4FC3C9;border-radius:4px;padding:9px 11px;font-size:12.5px;line-height:1.5;animation:fadein .35s ease}
+@keyframes fadein{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+.sbox .top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:3px;font-weight:600;color:#0A6E7A}
+.conf{font-size:11px;font-weight:600;border-radius:3px;padding:1px 6px}.conf.High{background:#D5EDD8;color:#24502C}.conf.Medium{background:#FDF0C4;color:#6A4D00}
+.sbox .acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;align-items:center}
+.sm-btn{all:unset;cursor:pointer;font-size:12px;font-weight:600;padding:5px 11px;border-radius:4px;background:#4FC3C9;color:#fff}
+.sm-link{all:unset;cursor:pointer;font-size:12px;color:#0A6E7A;text-decoration:underline}
+.std{font-size:11.5px;color:#6B7280;margin-top:2px}
+.state{display:inline-block;font-size:11.5px;font-weight:600;border-radius:3px;padding:2px 7px}
+.st-acc{background:#D5EDD8;color:#24502C}.st-chg{background:#FDF0C4;color:#6A4D00}.st-man{background:#E8EBEE;color:#444}
+.ca-note{background:#fff;border-radius:6px;box-shadow:0 2px 10px rgba(0,0,0,.06);padding:20px 22px;position:sticky;top:16px}
+.ca-note .meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding-bottom:14px;margin-bottom:14px;border-bottom:1px solid #E4E7EB;font-size:13.5px}
+.ca-note .meta b{display:block;font-size:13.5px;margin-bottom:3px}
+.note-text{font-size:14.5px;line-height:1.75}.note-text p{margin:0 0 10px}
+.ev{border-radius:3px;transition:background .25s,box-shadow .25s}
+.ev.hl{background:#FFF0A8;box-shadow:0 0 0 3px #FFF0A8}
+.ev.hl-miss{background:#FDE2E2;box-shadow:0 0 0 3px #FDE2E2}
+.ca-foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;background:#fff;border-radius:6px;box-shadow:0 2px 10px rgba(0,0,0,.06);padding:14px 18px;margin-top:16px;font-size:13.5px}
+.trail{display:none;margin-top:12px;background:#F3FBF4;border:1px solid #CBE7CF;border-radius:6px;padding:14px 18px;font-size:13px;line-height:1.6}
+.trail b{font-weight:600}
+@media (max-width:860px){.ca-form{max-height:none}.ca-grid{grid-template-columns:1fr}.ca-note{position:static;order:-1}.ca-note .meta{grid-template-columns:1fr 1fr}}
+
 /* form */
 .field{display:flex;flex-direction:column;gap:6px}
 .field label{font-size:14px;font-weight:500;color:var(--ink)}
@@ -161,7 +201,8 @@ footer a{color:#BFD9E2}footer a:hover{color:#fff}
         <span style="font-weight:600;font-size:13px;letter-spacing:.08em;border:1px solid rgba(255,255,255,.5);border-radius:4px;padding:2px 7px">AI</span>
       </a>
       <nav aria-label="Main">
-        <a class="lnk" href="#demo">See the AI audit</a>
+        <a class="lnk" href="#demo">AI Bulk Audit</a>
+        <a class="lnk" href="#co-auditor">AI Co-Auditor</a>
         <a class="lnk" href="#how">How it works</a>
         <a class="lnk" href="#security">Security &amp; IG</a>
         <a class="lnk" href="#pricing">Pilot</a>
@@ -219,9 +260,9 @@ footer a{color:#BFD9E2}footer a:hover{color:#fff}
 <section class="sec soft" id="demo">
   <div class="wrap">
     <div class="head">
-      <p class="eyebrow">See it in the product</p>
+      <p class="eyebrow">Feature 1 · AI Bulk Audit</p>
       <h2 class="h2">Import your cases. Press one button. Get a status for every case.</h2>
-      <p class="lead">The same Audit Angel your clinicians already know, with an AI audit step added after import. Try it below with fictional data.</p>
+      <p class="lead">The main feature: after import, the AI audits every case in the batch, not a sample. Each case gets a status and a reason, and the risky ones go to a clinician. Try it with fictional data.</p>
     </div>
 
     <div class="demo-steps">
@@ -284,7 +325,7 @@ footer a{color:#BFD9E2}footer a:hover{color:#fff}
                 <div class="todo">
                   <div><span>Case</span><span>Suggested action</span><span>Owner</span></div>
                   <div><span>002FF73MR <span class="pill p-hi">High risk</span></span><span>Recall for FBC/LFT before next methotrexate issue</span><span class="mini">Dr. Archer</span></div>
-                  <div><span>004KD81PL <span class="pill p-hi">High risk</span></span><span>Review NEWS2 5 with no escalation recorded</span><span class="mini">Dr. Gleghorn</span></div>
+                  <div><span>004KD81PL <span class="pill p-hi">High risk</span></span><span>Review disposition: possible ACS advised to self-transport <a href="#co-auditor" style="font-size:12px">open in Co-Auditor →</a></span><span class="mini">Dr. Reid</span></div>
                   <div><span>0012F74MR <span class="pill p-rev">Review</span></span><span>Feed back on missing safety-netting advice</span><span class="mini">P. Gunner</span></div>
                   <div><span>01F1JC73FR <span class="pill p-rev">Review</span></span><span>Check antibiotic choice against NICE NG84</span><span class="mini">Dr. Davies</span></div>
                 </div>
@@ -303,6 +344,70 @@ footer a{color:#BFD9E2}footer a:hover{color:#fff}
         <div class="cap"><b>Every case gets a status and a reason</b><span>Compliant, needs review or high risk, with the standard it was checked against. The report groups findings by area and turns them into tasks. The AI flags; your clinicians decide.</span></div>
         <p class="illus">Illustrative demo · fictional cases · percentages are examples <span class="v">VERIFY before publishing</span></p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE 2: AI CO-AUDITOR -->
+<section class="sec" id="co-auditor">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Feature 2 · AI Co-Auditor</p>
+      <h2 class="h2">For cases your team audits by hand: the AI suggests, the auditor decides.</h2>
+      <p class="lead">Open any case and the Co-Auditor proposes a score for every question, with the sentence in the note it is based on. Your auditor accepts or changes each one. Nothing is scored until a person confirms it.</p>
+    </div>
+
+    <div class="app" id="coapp">
+      <div class="app-bar">
+        <span class="dots" aria-hidden="true"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i></span>
+        <svg width="16" height="22" viewBox="0 0 28 40" fill="none" aria-hidden="true"><path fill-rule="evenodd" d="M22.2 33.96h5.4L16.18 1.7h-2.2L.9 38.4h1.7l1.58-4.44.58-1.61L15.08 3.4l10.25 28.95h-3.7L15.9 16.35h-1.7l-5.77 16-.58 1.61-1.6 4.44h1.71l1.6-4.44h10.94l1.6 4.44h1.7l-1.6-4.44zm-2.28-1.61L15.05 18.75l-4.91 13.6h9.78z" fill="#4FC3C9"/></svg>
+        <a href="#co-auditor" class="hide-s">Home</a><a href="#co-auditor" class="hide-s">Clinicians</a><a href="#co-auditor">Cases</a><a href="#co-auditor" class="on">Audit ▾</a><a href="#co-auditor" class="hide-s">Reporting ▾</a>
+        <span class="who"><span class="org hide-s">Riverside Urgent Care ▾</span><span class="av">PN</span><span class="hide-s" style="line-height:1.2">Dr. Priya Nair<br><span style="font-weight:400;font-size:11px;color:#6B7280">AUDITOR</span></span></span>
+      </div>
+      <div class="app-body">
+        <div class="ca-head">
+          <div><b style="font-size:15px">Q4 documentation audit</b><div style="font-size:14px;color:#444;margin-top:2px">Clinical Documentation · Urgent care telephone consultations</div></div>
+          <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+            <button class="abtn" id="co-run">✦ AI Co-Auditor</button>
+            <span class="casenav"><span class="nb">←</span>Case 3 of 12<span class="nb">→</span></span>
+          </div>
+        </div>
+        <div class="ca-grid">
+          <div class="ca-form" id="co-form"></div>
+          <div class="ca-note">
+            <div class="meta">
+              <div><b>Case</b><span>004KD81PL</span></div>
+              <div><b>Clinician</b><span>Dr. Tom Reid</span></div>
+              <div><b>Start · End</b><span>12 Nov 2026, 19:04 · 19:13</span></div>
+            </div>
+            <div class="note-text">
+              <p><b>Patient:</b> 52M, telephone consultation, out-of-hours.</p>
+              <p><b>Presenting complaint:</b> <span class="ev" id="ev-e1">Central chest tightness for 2 hours, came on at rest, heavy in character, radiating to the left arm.</span> <span class="ev" id="ev-e2">Mild nausea. Denies shortness of breath.</span></p>
+              <p><b>PMH:</b> <span class="ev" id="ev-e3">Type 2 diabetes, hypertension. Ex-smoker (stopped 2019).</span></p>
+              <p><b>Medication:</b> <span class="ev" id="ev-e4">Metformin 1 g twice daily, ramipril 5 mg once daily.</span></p>
+              <p><b>Social:</b> Lives with wife. Works as a delivery driver.</p>
+              <p><b>Assessment:</b> Chest pain, possible cardiac cause.</p>
+              <p><b>Plan:</b> <span class="ev" id="ev-e5">Advised to attend ED now. Wife will drive him.</span> <span class="ev" id="ev-e6">Call back if worse.</span></p>
+            </div>
+            <p class="mini" style="margin:14px 0 0">Fictional patient and clinician. Identifiers already removed by the privacy filter.</p>
+          </div>
+        </div>
+        <div class="ca-foot">
+          <div><b id="co-count">0 of 8</b> <span style="color:#555">scores confirmed by the auditor</span> <span class="mini" id="co-score"></span></div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="abtn ghost" id="co-reset">Reset</button>
+            <button class="abtn" id="co-submit" disabled>Submit audit</button>
+          </div>
+        </div>
+        <div class="trail" id="co-trail" role="status"></div>
+      </div>
+    </div>
+    <p class="illus">Illustrative demo · fictional case · AI suggestions are scripted for this page</p>
+
+    <div class="grid g3" style="margin-top:36px">
+      <div class="card"><h3>Evidence, not guesses</h3><p>Every suggestion points to the sentence in the note it is based on. If nothing supports a score, it says so, as with the missing allergy status above.</p></div>
+      <div class="card"><h3>No “accept all” button</h3><p>Each score needs a person's click. The auditor can take the suggestion, pick another score, or ignore the AI completely.</p></div>
+      <div class="card"><h3>Every decision is logged</h3><p>Suggestions, final scores and overrides go into the audit trail. Overrides measure how often the AI and your auditors agree, per question.</p></div>
     </div>
   </div>
 </section>
@@ -361,7 +466,7 @@ footer a{color:#BFD9E2}footer a:hover{color:#fff}
       </div>
       <div class="card" style="border-color:#F2B8B8">
         <span style="font-size:13px;font-weight:600;color:var(--muted)">3 · Audit result</span>
-        <div style="display:flex;align-items:center;gap:10px"><span class="pill p-hi" style="font-family:Inter,sans-serif">High risk</span><strong style="font-size:16px">High-risk drug monitoring</strong></div>
+        <div style="display:flex;align-items:center;gap:10px"><span class="pill p-hi" style="font-family:Roboto,sans-serif">High risk</span><strong style="font-size:16px">High-risk drug monitoring</strong></div>
         <p>Repeat issued with monitoring bloods overdue (over 12 weeks). <span class="v">VERIFY standard + interval</span></p>
         <p><strong style="color:var(--ink)">CQC:</strong> Safe · Medicines optimisation</p>
         <p><strong style="color:var(--ink)">Suggested action:</strong> recall for FBC/LFT before next issue.</p>
@@ -537,7 +642,7 @@ footer a{color:#BFD9E2}footer a:hover{color:#fff}
     ['0012F73MR','Red flags & escalation','ok','Red flags asked and recorded'],
     ['0012F74MR','Safety-netting','rev','No safety-netting advice recorded'],
     ['003JC7TD20','Consent & documentation','ok','Consent and history complete'],
-    ['004KD81PL','Red flags & escalation','hi','NEWS2 5, no escalation documented'],
+    ['004KD81PL','Red flags & escalation','hi','Possible cardiac chest pain sent to ED by private car, no 999'],
     ['0013M73RF','Antibiotic prescribing','ok','Delayed script in line with guidance']
   ];
   var LBL={pend:'Pending',run:'Auditing…',ok:'Compliant',rev:'Needs review',hi:'High risk'};
@@ -583,6 +688,85 @@ footer a{color:#BFD9E2}footer a:hover{color:#fff}
     pg.textContent='Showing 8 of 36 · rows per page: 8';
   }
   reset.onclick=doReset; doReset();
+})();
+</script>
+
+<script>
+(function(){
+  var Q=[
+    {sec:'Clearly Elicits Reason For Call',q:'Identifies the main reason for contact',s:2,c:'High',why:'Presenting complaint stated clearly at the start of the note.',ev:'e1'},
+    {sec:'IDs Emergency Or Serious Situations',q:'Asks appropriate questions to exclude red flags',s:1,c:'Medium',why:'Radiation and nausea asked about. Sweating, collapse and breathlessness on exertion not recorded.',ev:'e2'},
+    {sec:'Appropriate History Taking',q:'Records history of presenting complaint',s:2,c:'High',why:'Onset, duration, character and radiation all recorded.',ev:'e1'},
+    {q:'Records past medical history',s:2,c:'High',why:'Diabetes, hypertension and smoking history recorded.',ev:'e3'},
+    {q:'Records regular medication',s:2,c:'High',why:'Both regular medicines recorded with dose and frequency.',ev:'e4'},
+    {q:'Records allergies (or none)',s:0,c:'High',why:'No allergy status found anywhere in the note.',ev:null},
+    {sec:'Safe Outcome',q:'Disposition matches clinical urgency',s:0,c:'Medium',why:'Possible cardiac chest pain advised to travel to ED by private car. Local protocol expects a 999 ambulance.',std:'Checked against: local chest pain protocol, NICE CG95',ev:'e5'},
+    {q:'Safety-netting advice documented',s:1,c:'Medium',why:'“Call back if worse” recorded, but no specific symptoms or what to do if they occur.',ev:'e6'}
+  ];
+  var OPTS=['0','1','2','N/A'];
+  var form=document.getElementById('co-form'),run=document.getElementById('co-run'),sub=document.getElementById('co-submit'),
+      rst=document.getElementById('co-reset'),cnt=document.getElementById('co-count'),sc=document.getElementById('co-score'),trail=document.getElementById('co-trail');
+  var st,aiOn,done,timers=[];
+  function hl(ev,on){document.querySelectorAll('.ev').forEach(function(e){e.classList.remove('hl')});if(on&&ev){var e=document.getElementById('ev-'+ev);if(e)e.classList.add('hl')}}
+  function render(){
+    var h='';
+    Q.forEach(function(q,i){
+      if(q.sec)h+='<div class="ca-sec">'+q.sec+'</div>';
+      h+='<div class="ca-q" data-i="'+i+'"><div class="qt">'+q.q+'</div><div class="radios" role="radiogroup" aria-label="'+q.q+'">';
+      OPTS.forEach(function(o){h+='<label data-v="'+o+'"><input type="radio" name="coq'+i+'" value="'+o+'"> '+o+'</label>'});
+      h+='</div><div class="sbox" id="sb'+i+'"><div class="top"><span>✦ AI suggests '+q.s+'</span><span class="conf '+q.c+'">'+q.c+' confidence</span></div><div class="why">'+q.why+'</div>'+(q.std?'<div class="std">'+q.std+'</div>':'')+
+        '<div class="acts"><button class="sm-btn" data-acc="'+i+'">Accept '+q.s+'</button>'+(q.ev?'<button class="sm-link" data-ev="'+q.ev+'">Show in note</button>':'<span class="std">No supporting text in note</span>')+'<span id="stt'+i+'"></span></div></div></div>';
+    });
+    form.innerHTML=h;
+  }
+  function update(){
+    var n=0,acc=0,chg=0,man=0,pts=0,max=0;
+    st.forEach(function(x,i){
+      if(x.v==null)return;n++;
+      if(x.v!=='N/A'){pts+=+x.v;max+=2}
+      if(!aiOn){man++;return}
+      var el=document.getElementById('stt'+i);document.getElementById('sb'+i).classList.add('dec');
+      if(String(Q[i].s)===x.v){acc++;el.innerHTML='<span class="state st-acc">✓ Accepted by auditor</span>'}
+      else{chg++;el.innerHTML='<span class="state st-chg">✎ Changed by auditor (AI said '+Q[i].s+')</span>'}
+    });
+    cnt.textContent=n+' of '+Q.length;
+    sc.textContent=n?'· running score '+pts+'/'+max:'';
+    sub.disabled=n<Q.length||done;
+    return {n:n,acc:acc,chg:chg,pts:pts,max:max};
+  }
+  form.addEventListener('change',function(e){
+    if(done)return;var i=+e.target.name.replace('coq','');st[i].v=e.target.value;update();
+  });
+  form.addEventListener('click',function(e){
+    var a=e.target.getAttribute('data-acc');
+    if(a!=null&&!done){var i=+a;var r=form.querySelector('input[name=coq'+i+'][value="'+Q[i].s+'"]');r.checked=true;st[i].v=String(Q[i].s);update();hl(null,false)}
+    var ev=e.target.getAttribute('data-ev');if(ev)hl(ev,true);
+  });
+  form.addEventListener('mouseover',function(e){var b=e.target.closest('.sbox');if(b){var i=+b.id.slice(2);hl(Q[i].ev,true)}});
+  run.onclick=function(){
+    if(aiOn||done)return;run.disabled=true;run.textContent='Reading the note…';form.classList.add('thinking');
+    timers.push(setTimeout(function(){
+      form.classList.remove('thinking');aiOn=true;run.textContent='✦ Suggestions ready';
+      Q.forEach(function(q,i){timers.push(setTimeout(function(){
+        document.getElementById('sb'+i).style.display='block';
+        form.querySelector('.ca-q[data-i="'+i+'"] label[data-v="'+q.s+'"]').classList.add('sug');
+        if(st[i].v!=null)update();
+      },i*180))});
+    },1200));
+  };
+  sub.onclick=function(){
+    var r=update();done=true;sub.disabled=true;sub.textContent='Submitted ✓';
+    form.querySelectorAll('input').forEach(function(x){x.disabled=true});form.querySelectorAll('.sm-btn').forEach(function(x){x.style.display='none'});
+    trail.style.display='block';
+    trail.innerHTML='<b>Audit submitted by Dr. Priya Nair (auditor)</b> · 16 Nov 2026, 14:52<br>Final score <b>'+r.pts+'/'+r.max+'</b> · '+
+      (aiOn?('AI suggestions: <b>'+r.acc+' accepted</b>, <b>'+r.chg+' changed</b> by the auditor'):'Scored manually, AI not used')+
+      '<br><span style="color:#555">The auditor\'s scores are final. AI suggestions, evidence and every change are kept in the audit log for this case.</span>';
+  };
+  function reset(){
+    timers.forEach(clearTimeout);timers=[];st=Q.map(function(){return {v:null}});aiOn=false;done=false;render();hl(null,false);
+    run.disabled=false;run.textContent='✦ AI Co-Auditor';sub.textContent='Submit audit';trail.style.display='none';update();
+  }
+  rst.onclick=reset;reset();
 })();
 </script>
 </body>
