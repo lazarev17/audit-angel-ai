@@ -58,7 +58,8 @@ a{color:var(--accent)}a:hover{color:var(--navy)}
 /* trust */
 .trust{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:20px 44px;padding:36px 0}
 .trust img{height:64px;width:auto;object-fit:contain}
-.trust .t{font-size:15px;font-weight:500;color:var(--body)}
+.trust a{display:block;transition:transform .2s}.trust a:hover{transform:translateY(-2px)}
+.trust .badge{display:inline-flex;align-items:center;gap:12px;font-size:15px;font-weight:600;color:var(--ink);line-height:1.2}.trust .badge small{font-size:13px;font-weight:400;color:var(--body)}
 
 /* table compare */
 .tbl{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 6px 24px rgba(1,81,125,.06)}
@@ -205,8 +206,7 @@ footer a{color:#BFD9E2}footer a:hover{color:#fff}
         <a class="lnk" href="#co-auditor">AI Co-Auditor</a>
         <a class="lnk" href="#how">How it works</a>
         <a class="lnk" href="#security">Security &amp; IG</a>
-        <a class="lnk" href="#pricing">Pilot</a>
-        <a class="lnk" href="https://app.audit-angel.co.uk" rel="nofollow">Login <span class="v">VERIFY URL</span></a>
+        <a class="lnk" href="https://app.audit-angel.co.uk/" rel="nofollow">Login</a>
         <a href="#book" class="btn btn-p" style="min-height:44px;font-size:15px">Book a pilot call</a>
       </nav>
     </div>
@@ -217,10 +217,9 @@ footer a{color:#BFD9E2}footer a:hover{color:#fff}
         <h1>Every record audited.<br><span>Not a 2% sample.</span></h1>
         <p class="lead">Audit Angel checks 100% of consultations and care notes against NICE and CQC standards, every week, so you find the unsafe pattern before a patient or an inspector does. Patient identifiers are removed inside your environment before any AI sees the text.</p>
         <div style="display:flex;flex-wrap:wrap;gap:12px">
-          <a href="#book" class="btn btn-p">Book a Full-Record Audit Pilot</a>
+          <a href="#book" class="btn btn-p">Book a Demo</a>
           <a href="#demo" class="btn btn-w">Try the AI audit demo ↓</a>
         </div>
-        <p style="margin:0;font-size:14px;color:rgba(255,255,255,.8)">One month of your records · fixed price · findings report in 2 weeks <span class="v">VERIFY timeline</span></p>
       </div>
       <div style="flex:1 1 440px;min-width:0">
         <img class="hero-shot" src="https://audit-angel.co.uk/_nuxt/img/about4.188d6fe.svg" alt="Audit Angel dashboard showing total audits reviewed and audit score" width="1356" height="930">
@@ -232,12 +231,11 @@ footer a{color:#BFD9E2}footer a:hover{color:#fff}
 <!-- TRUST -->
 <section style="border-bottom:1px solid var(--line)">
   <div class="wrap trust">
-    <img src="https://audit-angel.co.uk/_nuxt/img/certificate-1.836389a.png" alt="ISO/IEC 27001, UKAS accredited" loading="lazy">
-    <img src="https://audit-angel.co.uk/_nuxt/img/certificate-2.202a1aa.png" alt="NHS DSPT standards met" loading="lazy">
-    <img src="https://audit-angel.co.uk/_nuxt/img/certificate-3.677b4a2.png" alt="Cyber Essentials" loading="lazy">
-    <span class="t">DCB0129 clinical safety case</span>
-    <span class="t">UK data residency</span>
-    <span class="v">VERIFY each badge is current</span>
+    <a href="https://audit-angel.co.uk/pdf/certificate-1.pdf" target="_blank" rel="noopener" title="ISO/IEC 27001 certificate (PDF)"><img src="https://audit-angel.co.uk/_nuxt/img/certificate-1.836389a.png" alt="ISO/IEC 27001, UKAS accredited" loading="lazy"></a>
+    <a href="https://audit-angel.co.uk/pdf/certificate-2.pdf" target="_blank" rel="noopener" title="NHS DSPT certificate (PDF)"><img src="https://audit-angel.co.uk/_nuxt/img/certificate-2.202a1aa.png" alt="NHS DSPT standards met" loading="lazy"></a>
+    <a href="https://registry.blockmarktech.com/certificates/266afb3c-2d83-4441-a2a2-b324aee386e5/" target="_blank" rel="noopener" title="Cyber Essentials certificate"><img src="https://audit-angel.co.uk/_nuxt/img/certificate-3.677b4a2.png" alt="Cyber Essentials" loading="lazy"></a>
+    <span class="badge"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#E3F6F7"/><path d="M20 9l9 3.5v6.2c0 5.6-3.8 10.4-9 12.3-5.2-1.9-9-6.7-9-12.3v-6.2L20 9z" stroke="#087A8C" stroke-width="2" stroke-linejoin="round"/><path d="M20 15.5v8M16 19.5h8" stroke="#087A8C" stroke-width="2.2" stroke-linecap="round"/></svg><span>DCB0129<br><small>clinical safety case</small></span></span>
+    <span class="badge"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#E3F6F7"/><ellipse cx="20" cy="15" rx="8" ry="3" stroke="#087A8C" stroke-width="2"/><path d="M12 15v10c0 1.7 3.6 3 8 3s8-1.3 8-3V15M12 20c0 1.7 3.6 3 8 3s8-1.3 8-3" stroke="#087A8C" stroke-width="2"/></svg><span>UK data<br><small>residency</small></span></span>
   </div>
 </section>
 
@@ -342,7 +340,7 @@ footer a{color:#BFD9E2}footer a:hover{color:#fff}
           </div>
         </div>
         <div class="cap"><b>Every case gets a status and a reason</b><span>Compliant, needs review or high risk, with the standard it was checked against. The report groups findings by area and turns them into tasks. The AI flags; your clinicians decide.</span></div>
-        <p class="illus">Illustrative demo · fictional cases · percentages are examples <span class="v">VERIFY before publishing</span></p>
+        <p class="illus">Illustrative demo · fictional cases · percentages are examples</p>
       </div>
     </div>
   </div>
@@ -542,60 +540,6 @@ footer a{color:#BFD9E2}footer a:hover{color:#fff}
   </div>
 </section>
 
-<!-- STATE B -->
-<section class="sec soft">
-  <div class="wrap" style="display:flex;flex-wrap:wrap;gap:48px;align-items:center">
-    <div style="flex:999 1 520px;min-width:0;display:flex;flex-direction:column;gap:18px">
-      <p class="eyebrow">What it looks like after</p>
-      <h2 class="h2">Monday's governance meeting, three months from now</h2>
-      <p class="lead">The dashboard shows every site and every clinician for last week. Three issues came up, and each already has an owner. The CQC evidence pack is up to date because it updates itself. Nobody stayed late pulling records, and when the inspector asks how you know care is safe, you can show them every case, not a sample.</p>
-    </div>
-    <div style="flex:1 1 340px;min-width:0">
-      <div class="card" style="gap:14px">
-        <span style="font-size:13px;font-weight:600;color:var(--muted)">This week · all sites</span>
-        <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:10px"><span>Records audited</span><strong>4,612</strong></div>
-        <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:10px"><span>Open high-risk flags</span><strong style="color:#B42318">3</strong></div>
-        <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:10px"><span>Assigned to a clinician</span><strong>3 of 3</strong></div>
-        <div style="display:flex;justify-content:space-between"><span>CQC pack</span><strong style="color:var(--accent)">Up to date</strong></div>
-        <span style="font-size:12px;color:var(--muted)">Illustrative example</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PRICING -->
-<section class="sec" id="pricing">
-  <div class="wrap">
-    <div class="head">
-      <p class="eyebrow">Start small</p>
-      <h2 class="h2">Prove it on one month of your own records</h2>
-    </div>
-    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));align-items:stretch">
-      <div class="card">
-        <span style="font-size:13px;font-weight:600;color:var(--muted)">Single site</span>
-        <h3>Free CQC toolkit</h3>
-        <p>CQC audit templates and mock inspections for one practice, home or clinic. Self-serve.</p>
-        <div style="font-size:28px;font-weight:700">Free</div>
-        <a href="https://cqc.audit-angel.co.uk" class="btn btn-s" style="margin-top:auto">Open the toolkit</a>
-      </div>
-      <div class="card" style="border:2px solid var(--teal);box-shadow:0 14px 34px rgba(17,155,210,.16)">
-        <span style="font-size:13px;font-weight:600;color:var(--accent)">Recommended first step</span>
-        <h3>Full-Record Audit Pilot</h3>
-        <p>One month of records, one audit area you choose, run by our team from your exports. You get a findings report and a review session with your clinical leads.</p>
-        <div style="font-size:28px;font-weight:700">[FIXED PRICE] <span class="v">PLACEHOLDER</span></div>
-        <a href="#book" class="btn btn-p" style="margin-top:auto">Book a pilot call</a>
-      </div>
-      <div class="card">
-        <span style="font-size:13px;font-weight:600;color:var(--muted)">Groups, 5+ sites</span>
-        <h3>Continuous Audit</h3>
-        <p>Weekly auditing of every record across all sites, with live connections, local rules and CQC packs maintained by our team.</p>
-        <div style="font-size:28px;font-weight:700">[£ / site / year] <span class="v">PLACEHOLDER</span></div>
-        <a href="#book" class="btn btn-s" style="margin-top:auto">Talk to us</a>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- BOOK -->
 <section class="sec soft" id="book">
   <div class="wrap" style="display:flex;flex-wrap:wrap;gap:56px">
@@ -616,19 +560,19 @@ footer a{color:#BFD9E2}footer a:hover{color:#fff}
       <div class="field"><label for="aa-sites">Number of sites</label><select id="aa-sites"><option>1</option><option>2–4</option><option>5–20</option><option>21–100</option><option>100+</option></select></div>
       <div class="field" style="grid-column:1/-1"><label for="aa-sys">Main clinical or care system</label><select id="aa-sys"><option>EMIS Web</option><option>SystmOne</option><option>Adastra</option><option>Nourish</option><option>Birdie</option><option>Other</option></select></div>
       <button type="button" class="btn btn-p" style="grid-column:1/-1">Book a 20-minute pilot call</button>
-      <p style="grid-column:1/-1;margin:0;font-size:13px;color:var(--muted)">We use your details only to arrange this call. <a href="#privacy">Privacy notice</a> <span class="v">form not wired yet</span></p>
+      <p style="grid-column:1/-1;margin:0;font-size:13px;color:var(--muted)">We use your details only to arrange this call. <a href="https://audit-angel.co.uk/privacy" target="_blank" rel="noopener">Privacy notice</a></p>
     </form>
   </div>
 </section>
 
 <footer>
   <div class="wrap" style="padding-top:48px;padding-bottom:48px;display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:center;font-size:14px">
-    <span>Audit Angel is built by Codex Software <span class="v">VERIFY legal entity</span></span>
+    <span style="max-width:620px;line-height:1.6">Audit Angel is built by Codex Software.<br><span style="font-size:13px;opacity:.85">Registered number: 09712933 · VAT reg no: 266 0325 17<br>Registered office: Oakley House, Tetbury Road, Cirencester, Gloucestershire, GL7 1US</span></span>
     <div style="display:flex;flex-wrap:wrap;gap:24px">
       <a href="https://audit-angel.co.uk">audit-angel.co.uk</a>
       <a href="https://cqc.audit-angel.co.uk">CQC toolkit</a>
       <a href="https://codex-soft.com">Need custom healthcare engineering? Codex →</a>
-      <a id="privacy" href="#privacy">Privacy</a>
+      <a href="https://audit-angel.co.uk/privacy">Privacy</a>
     </div>
   </div>
 </footer>
