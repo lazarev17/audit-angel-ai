@@ -4,308 +4,584 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Audit Angel AI — Every record audited, not a 2% sample</title>
+<meta name="description" content="Audit Angel checks 100% of consultations and care notes against NICE and CQC standards every week. Identifiers removed in your environment before any AI sees the text.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-body{margin:0;background:#F6F7F4}
-a{color:#0B5E57}a:hover{color:#08433E}
-.v{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.4;font-weight:500;color:#7A3E00;background:#FCEBD2;border-radius:4px;padding:1px 6px;vertical-align:middle;letter-spacing:0}
-.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#0B5E57;margin:0}
-.h2{font-size:40px;line-height:1.15;font-weight:600;letter-spacing:-.01em;margin:0;color:#0E1B2B}
-.lead{font-size:18px;line-height:1.6;color:#3D4A5A;margin:0}
-.card{background:#FFFFFF;border:1px solid #DDE2DA;border-radius:12px;padding:28px;display:flex;flex-direction:column;gap:12px}
-.card h3{margin:0;font-size:20px;line-height:1.3;color:#0E1B2B;font-weight:600}
-.card p{margin:0;font-size:16px;line-height:1.6;color:#3D4A5A}
-.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:8px;font-weight:600;font-size:16px;text-decoration:none}
-.btn-p{background:#0B5E57;color:#FFFFFF}.btn-p:hover{background:#08433E;color:#FFFFFF}
-.btn-s{background:transparent;color:#0E1B2B;border:1px solid #9AA5B1}.btn-s:hover{color:#0E1B2B;border-color:#0E1B2B}
-.mono{font-family:'IBM Plex Mono',monospace}
-.row{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:0;border-top:1px solid #DDE2DA}
-.row div{padding:16px 20px;font-size:16px;line-height:1.5;color:#3D4A5A}
+:root{
+  --navy:#01517D; --navy-2:#013A5A; --teal:#01C6D0; --teal-2:#33C8C1; --blue:#119BD2;
+  --accent:#087A8C; --ink:#2E2E2E; --body:#4A4A55; --muted:#6A6972; --line:#E3ECEF;
+  --bg:#FFFFFF; --bg-soft:#F2F9FA; --app-teal:#4FC3C9;
+  --grad:linear-gradient(90deg,#33C8C1 0,#119BD2 50%,#33C8C1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Poppins',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:var(--accent)}a:hover{color:var(--navy)}
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+.sec{padding:96px 0}
+.soft{background:var(--bg-soft)}
+.v{display:inline-block;font-family:ui-monospace,Menlo,monospace;font-size:11px;line-height:1.4;font-weight:500;color:#7A3E00;background:#FCEBD2;border-radius:4px;padding:1px 6px;vertical-align:middle}
+.eyebrow{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:0}
+.h2{font-size:38px;line-height:1.2;font-weight:700;letter-spacing:-.01em;margin:0;color:var(--ink)}
+.lead{font-size:18px;line-height:1.7;color:var(--body);margin:0}
+.head{display:flex;flex-direction:column;gap:14px;max-width:780px;margin-bottom:44px}
+.grid{display:grid;gap:22px}
+.g3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:28px;display:flex;flex-direction:column;gap:12px;box-shadow:0 6px 24px rgba(1,81,125,.06)}
+.card h3{margin:0;font-size:19px;line-height:1.35;color:var(--ink);font-weight:600}
+.card p{margin:0;font-size:15.5px;line-height:1.65;color:var(--body)}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 26px;border-radius:8px;font-weight:500;font-size:16px;text-decoration:none;border:0;cursor:pointer;font-family:inherit;transition:background-position .4s,box-shadow .2s}
+.btn-p{background:var(--grad);background-size:200% 100%;color:#fff;box-shadow:0 8px 20px rgba(17,155,210,.25)}
+.btn-p:hover{background-position:100% 0;color:#fff}
+.btn-s{background:#fff;color:var(--navy);border:1px solid #BFD6DE}.btn-s:hover{border-color:var(--navy);color:var(--navy)}
+.btn-w{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.55)}.btn-w:hover{background:rgba(255,255,255,.22);color:#fff}
+.mono{font-family:ui-monospace,Menlo,monospace}
+
+/* header + hero */
+.hero{position:relative;color:#fff;background:#01517D url(img/hero-bg.svg) center bottom/100% 100% no-repeat;padding-bottom:120px;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 12% 30%,rgba(255,255,255,.08) 0 60px,transparent 61px),radial-gradient(circle at 58% 12%,rgba(255,255,255,.07) 0 44px,transparent 45px),radial-gradient(circle at 88% 6%,rgba(255,255,255,.08) 0 38px,transparent 39px);pointer-events:none}
+.nav{position:relative;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding:22px 0}
+.nav a.lnk{color:rgba(255,255,255,.88);text-decoration:none;font-size:15px}.nav a.lnk:hover{color:#fff}
+.nav nav{display:flex;flex-wrap:wrap;align-items:center;gap:26px}
+.hero-in{position:relative;display:flex;flex-wrap:wrap;gap:48px;align-items:center;padding-top:56px}
+.hero h1{margin:0;font-size:56px;line-height:1.1;letter-spacing:-.02em;font-weight:700}
+.hero h1 span{color:#9FF3EE}
+.hero .lead{color:rgba(255,255,255,.9);font-size:19px}
+.hero .eyebrow{color:#9FF3EE}
+.hero-shot{filter:drop-shadow(0 30px 50px rgba(0,30,50,.35))}
+
+/* trust */
+.trust{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:20px 44px;padding:36px 0}
+.trust img{height:64px;width:auto;object-fit:contain}
+.trust .t{font-size:15px;font-weight:500;color:var(--body)}
+
+/* table compare */
+.tbl{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 6px 24px rgba(1,81,125,.06)}
+.row{display:grid;grid-template-columns:1.3fr 1fr 1fr;border-top:1px solid var(--line)}
+.row div{padding:16px 22px;font-size:15.5px;line-height:1.55;color:var(--body)}
+.row.h{border-top:0;background:#EAF7F9}.row.h div{font-weight:600;color:var(--ink)}
+.row div.k{font-weight:600;color:var(--ink)}
+.row div.y{font-weight:600;color:var(--navy)}
+
+/* dark */
+.dark{background:linear-gradient(160deg,var(--navy) 0%,var(--navy-2) 100%);color:#E6F3F6}
+.dark .h2{color:#fff}.dark .eyebrow{color:#7FE7E3}.dark .lead{color:#BFD9E2}
+.step{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);border-radius:12px;padding:28px;display:flex;flex-direction:column;gap:12px}
+.step .n{font-size:14px;font-weight:600;color:#7FE7E3}
+.step h3{margin:0;font-size:19px;color:#fff;font-weight:600}
+.step p{margin:0;color:#BFD9E2;line-height:1.65;font-size:15.5px}
+
+/* product shots */
+.shot{border-radius:14px;overflow:hidden;background:#fff;border:1px solid var(--line);box-shadow:0 18px 40px rgba(1,81,125,.12)}
+.cap{display:flex;flex-direction:column;gap:6px;margin-top:16px}
+.cap b{font-size:17px;font-weight:600}.cap span{font-size:15px;color:var(--body);line-height:1.6}
+.demo-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:28px;align-items:start}
+.tag{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--accent);background:#E3F6F7;border-radius:999px;padding:4px 12px;width:max-content}
+
+/* ===== App mock (AI audit) ===== */
+.app{font-family:'Inter',system-ui,sans-serif;background:#F4F5F7;border:1px solid #DADFE4;border-radius:14px;overflow:hidden;box-shadow:0 18px 40px rgba(1,81,125,.14);color:#1F2329}
+.app-bar{display:flex;align-items:center;gap:22px;background:#fff;border-bottom:1px solid #E4E7EB;padding:12px 20px;font-size:13.5px;font-weight:600}
+.app-bar .dots{display:flex;gap:6px;margin-right:4px}.app-bar .dots i{width:10px;height:10px;border-radius:50%;display:block}
+.app-bar a{color:#1F2329;text-decoration:none}.app-bar .on{box-shadow:inset 0 -2px 0 var(--app-teal);padding-bottom:4px}
+.app-bar .who{margin-left:auto;display:flex;align-items:center;gap:8px;font-weight:600}
+.app-bar .av{width:24px;height:24px;border-radius:50%;background:#C9D3DB;display:grid;place-items:center;font-size:10px;color:#3A4450}
+.app-body{padding:20px}
+.modal{background:#fff;border-radius:6px;box-shadow:0 2px 14px rgba(0,0,0,.08);padding:26px 26px 20px}
+.modal h4{margin:0;font-size:26px;font-weight:600;letter-spacing:-.01em}
+.modal .sub{margin:4px 0 18px;font-size:13px;color:#555}
+.mtabs{display:flex;gap:24px;font-size:13.5px;font-weight:500;color:#777;border-bottom:1px solid #EEF0F2;margin-bottom:14px}
+.mtabs button{all:unset;cursor:pointer;padding:6px 0 10px}.mtabs button.on{color:#1F2329;box-shadow:inset 0 -2px 0 var(--app-teal)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 22px;font-size:13px;margin-bottom:12px}
+.legend i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:7px;vertical-align:1px}
+.mt{width:100%;border-collapse:collapse;font-size:13px}
+.mt th{background:#EFFAFB;text-align:left;font-weight:600;padding:12px 14px}
+.mt td{padding:10px 14px;border-top:1px solid #EEF0F2;vertical-align:middle}
+.mt td.f{color:#444;line-height:1.45}
+.pill{display:inline-block;font-size:12.5px;border-radius:4px;padding:3px 9px;white-space:nowrap;transition:background .3s,color .3s}
+.p-pend{background:#EEF0F2;color:#6B7280}
+.p-run{background:#E3F6F7;color:#0A6E7A}
+.p-ok{background:#D5EDD8;color:#24502C}
+.p-rev{background:#FBD56B;color:#4A3800}
+.p-hi{background:#F28C8C;color:#5C1414}
+.mfoot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-top:16px}
+.mfoot .pg{font-size:12px;color:#666}
+.abtn{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:8px;background:var(--app-teal);color:#fff;font-weight:600;font-size:13.5px;letter-spacing:.04em;text-transform:uppercase;border-radius:999px;padding:12px 24px;transition:filter .2s}
+.abtn:hover{filter:brightness(.95)}.abtn[disabled]{cursor:default;opacity:.75}
+.abtn.ghost{background:#fff;color:#0A6E7A;box-shadow:inset 0 0 0 1px #9ADADE}
+.prog{height:6px;background:#EEF0F2;border-radius:3px;overflow:hidden;margin:4px 0 14px}.prog i{display:block;height:100%;width:0;background:var(--app-teal);transition:width .25s}
+.rep{display:none}
+.rep .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:18px}
+.rep .kpi{border:1px solid #E4E7EB;border-radius:6px;padding:12px 14px}
+.rep .kpi b{display:block;font-size:22px;font-weight:600}.rep .kpi span{font-size:12px;color:#666}
+.bars{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
+.bar{display:grid;grid-template-columns:190px 1fr 46px;gap:12px;align-items:center;font-size:12.5px}
+.bar .tr{height:10px;background:#F1D2D2;border-radius:5px;overflow:hidden}.bar .tr i{display:block;height:100%;background:#7FCB8A}
+.todo{border:1px solid #E4E7EB;border-radius:6px}
+.todo div{display:grid;grid-template-columns:110px 1fr auto;gap:12px;align-items:center;padding:10px 14px;border-top:1px solid #EEF0F2;font-size:12.5px}
+.todo div:first-child{border-top:0;background:#FAFBFC;font-weight:600}
+.mini{font-size:11.5px;color:#888}
+.illus{font-size:12px;color:var(--muted);margin-top:10px}
+
+/* form */
 .field{display:flex;flex-direction:column;gap:6px}
-.field label{font-size:14px;font-weight:500;color:#0E1B2B}
-.field input,.field select{min-height:46px;border:1px solid #9AA5B1;border-radius:8px;padding:0 12px;font:inherit;font-size:16px;background:#FFFFFF;color:#0E1B2B}
-@media (max-width:760px){.h2{font-size:30px}.row{grid-template-columns:1fr}.row div:first-child{font-weight:600;color:#0E1B2B;padding-bottom:0}}
+.field label{font-size:14px;font-weight:500;color:var(--ink)}
+.field input,.field select{min-height:48px;border:1px solid #BFD0D6;border-radius:8px;padding:0 12px;font:inherit;font-size:15px;background:#fff;color:var(--ink)}
+.field input:focus,.field select:focus{outline:2px solid var(--teal);border-color:transparent}
+
+footer{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#BFD9E2}
+footer a{color:#BFD9E2}footer a:hover{color:#fff}
+
+@media (max-width:900px){.demo-steps{grid-template-columns:1fr}}
+@media (max-width:760px){
+  .wrap{padding:0 20px}.sec{padding:72px 0}
+  .h2{font-size:29px}.hero h1{font-size:38px}
+  .row{grid-template-columns:1fr}.row div.k{padding-bottom:0}
+  .nav nav a.lnk{display:none}
+  .rep .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .bar{grid-template-columns:1fr 1fr 40px}
+  .mt .hide-s{display:none}
+  .todo div{grid-template-columns:1fr}
+}
 </style>
-<style>html{scroll-behavior:smooth}*,*::before,*::after{box-sizing:border-box}</style>
 </head>
 <body>
-<div style="font-family: 'IBM Plex Sans', system-ui, sans-serif; color: #0E1B2B; background: #F6F7F4; min-height: 100vh">
-
-<!-- NAV -->
-<header style="border-bottom: 1px solid #DDE2DA; background: #F6F7F4">
-<div style="max-width: 1200px; margin: 0 auto; padding: 18px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
-<a href="#top" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #0E1B2B">
-<svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"><circle cx="14" cy="14" r="12.5" stroke="#0B5E57" stroke-width="2"></circle><path d="M8.5 14.5l3.5 3.5 7.5-8" stroke="#0B5E57" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-<span style="font-weight: 700; font-size: 18px">Audit Angel <span style="color: #0B5E57">AI</span></span>
-</a>
-<nav aria-label="Main" style="display: flex; flex-wrap: wrap; align-items: center; gap: 24px; font-size: 15px">
-<a href="#how" style="color: #3D4A5A; text-decoration: none">How it works</a>
-<a href="#security" style="color: #3D4A5A; text-decoration: none">Security &amp; IG</a>
-<a href="#pricing" style="color: #3D4A5A; text-decoration: none">Pilot</a>
-<a href="https://cqc.audit-angel.co.uk" style="color: #3D4A5A; text-decoration: none">Single site? Free CQC toolkit →</a>
-<a href="#book" class="btn btn-p" style="min-height: 44px; font-size: 15px">Book a pilot call</a>
-</nav>
-</div>
-</header>
 
 <!-- HERO -->
-<section id="top" style="max-width: 1200px; margin: 0 auto; padding: 88px 32px 72px; display: flex; flex-wrap: wrap; gap: 56px; align-items: center">
-<div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
-<p class="eyebrow">For clinical directors of GP federations, urgent care, care groups &amp; clinic chains</p>
-<h1 style="margin: 0; font-size: 60px; line-height: 1.05; letter-spacing: -.02em; font-weight: 700">Every record audited.<br><span style="color: #0B5E57">Not a 2% sample.</span></h1>
-<p class="lead" style="font-size: 20px">Audit Angel checks 100% of consultations and care notes against NICE and CQC standards, every week, so you find the unsafe pattern before a patient or an inspector does. Patient identifiers are removed inside your environment before any AI sees the text.</p>
-<div style="display: flex; flex-wrap: wrap; gap: 12px">
-<a href="#book" class="btn btn-p">Book a Full-Record Audit Pilot</a>
-<a href="#sample" class="btn btn-s">See a sample finding ↓</a>
-</div>
-<p style="margin: 0; font-size: 14px; color: #5A6675">One month of your records · fixed price · findings report in 2 weeks <span class="v">VERIFY timeline</span></p>
-</div>
-<div style="flex: 1 1 380px; min-width: 0">
-<div class="card" style="padding: 28px; gap: 18px; box-shadow: 0 1px 0 #DDE2DA">
-<div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap">
-<span class="mono" style="font-size: 13px; color: #5A6675">Last month · 12 sites</span>
-<span class="mono" style="font-size: 12px; color: #5A6675; border: 1px solid #DDE2DA; border-radius: 4px; padding: 2px 8px">Illustrative example</span>
-</div>
-<div>
-<div style="font-size: 14px; color: #5A6675; margin-bottom: 8px">Manual sample</div>
-<div style="height: 14px; background: #ECEFEA; border-radius: 4px; overflow: hidden"><div style="width: 2%; min-width: 6px; height: 100%; background: #9AA5B1"></div></div>
-<div class="mono" style="font-size: 13px; margin-top: 6px; color: #5A6675">368 of 18,420 records</div>
-</div>
-<div>
-<div style="font-size: 14px; color: #5A6675; margin-bottom: 8px">Audit Angel</div>
-<div style="height: 14px; background: #0B5E57; border-radius: 4px"></div>
-<div class="mono" style="font-size: 13px; margin-top: 6px; color: #0B5E57">18,420 of 18,420 records</div>
-</div>
-<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; border-top: 1px solid #DDE2DA; padding-top: 18px">
-<div><div style="font-size: 28px; font-weight: 700">312</div><div style="font-size: 13px; color: #5A6675">flagged for review</div></div>
-<div><div style="font-size: 28px; font-weight: 700; color: #A3470A">41</div><div style="font-size: 13px; color: #5A6675">high-risk</div></div>
-<div><div style="font-size: 28px; font-weight: 700">9</div><div style="font-size: 13px; color: #5A6675">clinicians to feed back to</div></div>
-</div>
-</div>
-</div>
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="nav">
+      <a href="#top" aria-label="Audit Angel home" style="display:flex;align-items:center;gap:12px;color:#fff;text-decoration:none">
+        <svg width="90" height="40" viewBox="0 0 90 40" fill="#fff" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M22.2102 33.9636H25.8977H27.6007L16.1848 1.69995H13.9844L0.896729 38.3999H2.60125L4.18329 33.9636L4.75857 32.3504L15.0831 3.39908L25.3268 32.3504H21.6305L15.8988 16.3531H14.2075L8.4306 32.3504L7.84962 33.9636L6.25404 38.3999H7.96022L9.5558 33.9636H20.5039L22.0998 38.3999H23.806L22.2102 33.9636ZM19.9251 32.3504L15.0505 18.7455L10.1376 32.3504H19.9251Z"/><path d="M33.8205 17H31.5786L35.6605 5.36365H38.2535L42.341 17H40.0991L37.0023 7.75001H36.9117L33.8205 17ZM33.8942 12.4375H40.0085V14.1307H33.8942V12.4375Z"/><path d="M51.1771 5.36365H53.2775V12.9659C53.2775 13.7992 53.0812 14.5322 52.6887 15.1648C52.2999 15.7973 51.7527 16.2917 51.0468 16.6477C50.3411 17 49.5164 17.1761 48.5728 17.1761C47.6254 17.1761 46.7989 17 46.0931 16.6477C45.3873 16.2917 44.8401 15.7973 44.4513 15.1648C44.0626 14.5322 43.8682 13.7992 43.8682 12.9659V5.36365H45.9685V12.7898C45.9685 13.2746 46.0742 13.7064 46.2856 14.0852C46.5007 14.464 46.8027 14.7614 47.1914 14.9773C47.5802 15.1894 48.0407 15.2955 48.5728 15.2955C49.105 15.2955 49.5655 15.1894 49.9542 14.9773C50.3468 14.7614 50.6487 14.464 50.86 14.0852C51.0715 13.7064 51.1771 13.2746 51.1771 12.7898V5.36365Z"/><path d="M59.4896 17H55.5605V5.36365H59.5688C60.72 5.36365 61.7088 5.5966 62.5355 6.06251C63.3658 6.52463 64.0037 7.1894 64.449 8.05683C64.8944 8.92425 65.1171 9.96213 65.1171 11.1705C65.1171 12.3826 64.8925 13.4242 64.4433 14.2955C63.998 15.1667 63.3544 15.8352 62.5127 16.3011C61.6748 16.767 60.6672 17 59.4896 17ZM57.6609 15.1761H59.3877C60.1954 15.1761 60.8691 15.0284 61.4088 14.733C61.9486 14.4337 62.3543 13.9886 62.626 13.3977C62.8978 12.803 63.0337 12.0606 63.0337 11.1705C63.0337 10.2803 62.8978 9.54168 62.626 8.95455C62.3543 8.36365 61.9523 7.92236 61.4202 7.63069C60.8917 7.33524 60.235 7.18751 59.45 7.18751H57.6609V15.1761Z"/><path d="M69.2132 5.36365V17H67.1128V5.36365H69.2132Z"/><path d="M70.978 7.13069V5.36365H80.2289V7.13069H76.6451V17H74.5617V7.13069H70.978Z"/><path d="M37.7751 34H35.5332L39.6151 22.3636H42.2081L46.2957 34H44.0538L40.9569 24.75H40.8663L37.7751 34ZM37.8488 29.4375H43.9632V31.1307H37.8488V29.4375Z"/><path d="M57.351 22.3636V34H55.4827L50.0195 26.0739H49.9232V34H47.8228V22.3636H49.7024L55.1601 30.2955H55.262V22.3636H57.351Z"/><path d="M67.4071 26.0795C67.3128 25.7727 67.1825 25.4981 67.0164 25.2557C66.8542 25.0095 66.6579 24.7992 66.4276 24.625C66.2012 24.4508 65.9408 24.3201 65.6464 24.233C65.352 24.142 65.0312 24.0966 64.6839 24.0966C64.0612 24.0966 63.5063 24.2538 63.0195 24.5682C62.5325 24.8826 62.1495 25.3447 61.8702 25.9545C61.5946 26.5606 61.4569 27.2992 61.4569 28.1705C61.4569 29.0492 61.5946 29.7936 61.8702 30.4034C62.1457 31.0133 62.5288 31.4773 63.0195 31.7955C63.5101 32.1098 64.0801 32.267 64.7292 32.267C65.318 32.267 65.8275 32.1534 66.2578 31.9261C66.6919 31.6989 67.0259 31.3769 67.2598 30.9602C67.4939 30.5398 67.6109 30.0473 67.6109 29.483L68.0865 29.5568H64.9387V27.9091H69.6434V29.3068C69.6434 30.303 69.432 31.1648 69.0093 31.892C68.5866 32.6193 68.0054 33.1799 67.2655 33.5739C66.5258 33.964 65.6765 34.1591 64.7179 34.1591C63.6497 34.1591 62.7119 33.9186 61.9041 33.4375C61.1002 32.9527 60.4718 32.2652 60.0189 31.375C59.5697 30.4811 59.3452 29.4205 59.3452 28.1932C59.3452 27.2538 59.4772 26.4148 59.7415 25.6761C60.0094 24.9375 60.3831 24.3106 60.8625 23.7955C61.3418 23.2765 61.9041 22.8826 62.5496 22.6136C63.195 22.3409 63.8969 22.2045 64.6556 22.2045C65.2973 22.2045 65.8955 22.2992 66.4503 22.4886C67.0052 22.6742 67.4977 22.9394 67.9279 23.2841C68.362 23.6288 68.7187 24.0379 68.998 24.5114C69.2773 24.9848 69.4603 25.5076 69.5471 26.0795H67.4071Z"/><path d="M71.6743 34V22.3636H79.2154V24.1307H73.7748V27.2898H78.8248V29.0568H73.7748V32.233H79.2607V34H71.6743Z"/><path d="M81.3584 34V22.3636H83.4587V32.233H88.5654V34H81.3584Z"/></svg>
+        <span style="font-weight:600;font-size:13px;letter-spacing:.08em;border:1px solid rgba(255,255,255,.5);border-radius:4px;padding:2px 7px">AI</span>
+      </a>
+      <nav aria-label="Main">
+        <a class="lnk" href="#demo">See the AI audit</a>
+        <a class="lnk" href="#how">How it works</a>
+        <a class="lnk" href="#security">Security &amp; IG</a>
+        <a class="lnk" href="#pricing">Pilot</a>
+        <a class="lnk" href="https://app.audit-angel.co.uk" rel="nofollow">Login <span class="v">VERIFY URL</span></a>
+        <a href="#book" class="btn btn-p" style="min-height:44px;font-size:15px">Book a pilot call</a>
+      </nav>
+    </div>
+
+    <div class="hero-in">
+      <div style="flex:999 1 500px;min-width:0;display:flex;flex-direction:column;gap:24px">
+        <p class="eyebrow">For clinical directors of GP federations, urgent care, care groups &amp; clinic chains</p>
+        <h1>Every record audited.<br><span>Not a 2% sample.</span></h1>
+        <p class="lead">Audit Angel checks 100% of consultations and care notes against NICE and CQC standards, every week, so you find the unsafe pattern before a patient or an inspector does. Patient identifiers are removed inside your environment before any AI sees the text.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:12px">
+          <a href="#book" class="btn btn-p">Book a Full-Record Audit Pilot</a>
+          <a href="#demo" class="btn btn-w">Try the AI audit demo ↓</a>
+        </div>
+        <p style="margin:0;font-size:14px;color:rgba(255,255,255,.8)">One month of your records · fixed price · findings report in 2 weeks <span class="v">VERIFY timeline</span></p>
+      </div>
+      <div style="flex:1 1 440px;min-width:0">
+        <img class="hero-shot" src="https://audit-angel.co.uk/_nuxt/img/about4.188d6fe.svg" alt="Audit Angel dashboard showing total audits reviewed and audit score" width="1356" height="930">
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- TRUST -->
+<section style="border-bottom:1px solid var(--line)">
+  <div class="wrap trust">
+    <img src="https://audit-angel.co.uk/_nuxt/img/certificate-1.836389a.png" alt="ISO/IEC 27001, UKAS accredited" loading="lazy">
+    <img src="https://audit-angel.co.uk/_nuxt/img/certificate-2.202a1aa.png" alt="NHS DSPT standards met" loading="lazy">
+    <img src="https://audit-angel.co.uk/_nuxt/img/certificate-3.677b4a2.png" alt="Cyber Essentials" loading="lazy">
+    <span class="t">DCB0129 clinical safety case</span>
+    <span class="t">UK data residency</span>
+    <span class="v">VERIFY each badge is current</span>
+  </div>
 </section>
 
-<!-- TRUST STRIP -->
-<section style="border-top: 1px solid #DDE2DA; border-bottom: 1px solid #DDE2DA; background: #FFFFFF">
-<div style="max-width: 1200px; margin: 0 auto; padding: 20px 32px; display: flex; flex-wrap: wrap; gap: 12px 32px; align-items: center; justify-content: center; font-size: 15px; color: #3D4A5A; font-weight: 500">
-<span>ISO/IEC 27001</span><span aria-hidden="true" style="color: #C3CAC0">·</span>
-<span>NHS DSPT</span><span aria-hidden="true" style="color: #C3CAC0">·</span>
-<span>Cyber Essentials</span><span aria-hidden="true" style="color: #C3CAC0">·</span>
-<span>DCB0129 clinical safety case</span><span aria-hidden="true" style="color: #C3CAC0">·</span>
-<span>UK data residency</span>
-<span class="v">VERIFY each badge is current</span>
-</div>
+<!-- PROBLEM -->
+<section class="sec">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Sound familiar?</p>
+      <h2 class="h2">You are responsible for the safety of thousands of consultations. You can see about 2% of them.</h2>
+    </div>
+    <div class="grid g3">
+      <div class="card"><h3>The inspection is booked</h3><p>Someone is pulling records into a spreadsheet by hand, hoping the sample they picked tells a good story.</p></div>
+      <div class="card"><h3>The incident review</h3><p>It turns out the same missed safety-netting happened dozens of times last quarter. None of it was in the sample.</p></div>
+      <div class="card"><h3>The evening audits</h3><p>Your clinical leads review 1 case in 50 after their shifts, and still can't tell you how the other 49 went.</p></div>
+    </div>
+  </div>
 </section>
 
-<!-- CONTEXT / TRIGGER -->
-<section style="max-width: 1200px; margin: 0 auto; padding: 96px 32px 32px; display: flex; flex-direction: column; gap: 40px">
-<div style="display: flex; flex-direction: column; gap: 16px; max-width: 760px">
-<p class="eyebrow">Sound familiar?</p>
-<h2 class="h2">You are responsible for the safety of thousands of consultations. You can see about 2% of them.</h2>
-</div>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px">
-<div class="card"><h3>The inspection is booked</h3><p>Someone is pulling records into a spreadsheet by hand, hoping the sample they picked tells a good story.</p></div>
-<div class="card"><h3>The incident review</h3><p>It turns out the same missed safety-netting happened dozens of times last quarter. None of it was in the sample.</p></div>
-<div class="card"><h3>The evening audits</h3><p>Your clinical leads review 1 case in 50 after their shifts, and still can't tell you how the other 49 went.</p></div>
-</div>
+<!-- DEMO -->
+<section class="sec soft" id="demo">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">See it in the product</p>
+      <h2 class="h2">Import your cases. Press one button. Get a status for every case.</h2>
+      <p class="lead">The same Audit Angel your clinicians already know, with an AI audit step added after import. Try it below with fictional data.</p>
+    </div>
+
+    <div class="demo-steps">
+      <div>
+        <span class="tag">Step 1 · Import</span>
+        <div class="shot" style="margin-top:14px"><img src="img/import-summary.jpg" alt="Import summary: 40 cases, 2 with errors, 2 duplicates, 36 imported" width="1472" height="1120" loading="lazy"></div>
+        <div class="cap"><b>Upload the export you already run</b><span>EMIS, SystmOne, Adastra or a care system CSV. Audit Angel checks format and duplicates before anything is audited.</span></div>
+      </div>
+
+      <div>
+        <span class="tag">Step 2 · AI audit</span>
+        <div class="app" style="margin-top:14px" id="aiapp">
+          <div class="app-bar">
+            <span class="dots" aria-hidden="true"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i></span>
+            <svg width="16" height="22" viewBox="0 0 28 40" fill="none" aria-hidden="true"><path fill-rule="evenodd" d="M22.2 33.96h5.4L16.18 1.7h-2.2L.9 38.4h1.7l1.58-4.44.58-1.61L15.08 3.4l10.25 28.95h-3.7L15.9 16.35h-1.7l-5.77 16-.58 1.61-1.6 4.44h1.71l1.6-4.44h10.94l1.6 4.44h1.7l-1.6-4.44zm-2.28-1.61L15.05 18.75l-4.91 13.6h9.78z" fill="#4FC3C9"/></svg>
+            <a href="#demo">Home</a><a href="#demo">Clinicians</a><a href="#demo" class="on">Cases</a><a href="#demo" class="hide-s">Audit ▾</a>
+            <span class="who"><span class="av">JD</span><span class="hide-s">Dr. John Davison</span></span>
+          </div>
+          <div class="app-body">
+            <div class="modal">
+              <h4>AI Audit Summary</h4>
+              <p class="sub" id="ai-sub"><b>Cases document.xlsx</b> · 36 imported cases ready to audit against NICE, CQC and local standards.</p>
+              <div class="mtabs" role="tablist">
+                <button class="on" id="tab-cases" role="tab" aria-selected="true">Cases</button>
+                <button id="tab-rep" role="tab" aria-selected="false">Report</button>
+              </div>
+
+              <div id="pane-cases">
+                <div class="legend" aria-live="polite">
+                  <span>All cases - <b id="c-all">36</b></span>
+                  <span><i style="background:#F28C8C"></i>High risk - <b id="c-hi">–</b></span>
+                  <span><i style="background:#F5C842"></i>Needs review - <b id="c-rev">–</b></span>
+                  <span><i style="background:#9ACD8A"></i>Compliant - <b id="c-ok">–</b></span>
+                </div>
+                <div class="prog" aria-hidden="true"><i id="ai-prog"></i></div>
+                <div style="overflow-x:auto">
+                  <table class="mt">
+                    <thead><tr><th>Case Reference</th><th class="hide-s">Audit area</th><th>AI status</th><th>Finding</th></tr></thead>
+                    <tbody id="ai-rows"></tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="rep" id="pane-rep">
+                <div class="kpis">
+                  <div class="kpi"><b>36</b><span>cases audited</span></div>
+                  <div class="kpi"><b style="color:#24502C">83%</b><span>compliant</span></div>
+                  <div class="kpi"><b style="color:#9A6B00">4</b><span>need review</span></div>
+                  <div class="kpi"><b style="color:#B42318">2</b><span>high risk</span></div>
+                </div>
+                <div class="mini" style="margin-bottom:8px;font-weight:600;color:#1F2329">Compliance by audit area</div>
+                <div class="bars">
+                  <div class="bar"><span>Safety-netting</span><span class="tr"><i style="width:78%"></i></span><b>78%</b></div>
+                  <div class="bar"><span>Antibiotic prescribing</span><span class="tr"><i style="width:86%"></i></span><b>86%</b></div>
+                  <div class="bar"><span>High-risk drug monitoring</span><span class="tr"><i style="width:67%"></i></span><b>67%</b></div>
+                  <div class="bar"><span>Red flags &amp; escalation</span><span class="tr"><i style="width:89%"></i></span><b>89%</b></div>
+                  <div class="bar"><span>Consent &amp; documentation</span><span class="tr"><i style="width:100%"></i></span><b>100%</b></div>
+                </div>
+                <div class="mini" style="margin-bottom:8px;font-weight:600;color:#1F2329">Cases for clinician review</div>
+                <div class="todo">
+                  <div><span>Case</span><span>Suggested action</span><span>Owner</span></div>
+                  <div><span>002FF73MR <span class="pill p-hi">High risk</span></span><span>Recall for FBC/LFT before next methotrexate issue</span><span class="mini">Dr. Archer</span></div>
+                  <div><span>004KD81PL <span class="pill p-hi">High risk</span></span><span>Review NEWS2 5 with no escalation recorded</span><span class="mini">Dr. Gleghorn</span></div>
+                  <div><span>0012F74MR <span class="pill p-rev">Review</span></span><span>Feed back on missing safety-netting advice</span><span class="mini">P. Gunner</span></div>
+                  <div><span>01F1JC73FR <span class="pill p-rev">Review</span></span><span>Check antibiotic choice against NICE NG84</span><span class="mini">Dr. Davies</span></div>
+                </div>
+              </div>
+
+              <div class="mfoot">
+                <span class="pg" id="ai-pg">Showing 8 of 36 · rows per page: 8</span>
+                <div style="display:flex;gap:10px;flex-wrap:wrap">
+                  <button class="abtn ghost" id="ai-reset" style="display:none">Reset</button>
+                  <button class="abtn" id="ai-run">✦ Run AI audit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cap"><b>Every case gets a status and a reason</b><span>Compliant, needs review or high risk, with the standard it was checked against. The report groups findings by area and turns them into tasks. The AI flags; your clinicians decide.</span></div>
+        <p class="illus">Illustrative demo · fictional cases · percentages are examples <span class="v">VERIFY before publishing</span></p>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- VALUE BY CRITERIA -->
-<section style="max-width: 1200px; margin: 0 auto; padding: 72px 32px; display: flex; flex-direction: column; gap: 32px">
-<div style="display: flex; flex-direction: column; gap: 16px; max-width: 760px">
-<p class="eyebrow">What changes</p>
-<h2 class="h2">From a quarterly sample to a weekly view of every record</h2>
-</div>
-<div style="background: #FFFFFF; border: 1px solid #DDE2DA; border-radius: 12px; overflow: hidden">
-<div class="row" style="border-top: 0; background: #ECEFEA"><div style="font-weight: 600; color: #0E1B2B"></div><div style="font-weight: 600; color: #0E1B2B">Manual sampling today</div><div style="font-weight: 600; color: #0B5E57">With Audit Angel</div></div>
-<div class="row"><div style="font-weight: 600; color: #0E1B2B">Records reviewed</div><div>1–5% sample <span class="v">VERIFY</span></div><div style="color: #0E1B2B; font-weight: 600">100%, every week</div></div>
-<div class="row"><div style="font-weight: 600; color: #0E1B2B">Consultation to finding</div><div>Next audit cycle, often months later</div><div style="color: #0E1B2B; font-weight: 600">Within 7 days <span class="v">VERIFY</span></div></div>
-<div class="row"><div style="font-weight: 600; color: #0E1B2B">Clinician time</div><div>Reading and scoring every sampled case</div><div style="color: #0E1B2B; font-weight: 600">Reviewing flagged cases only</div></div>
-<div class="row"><div style="font-weight: 600; color: #0E1B2B">Agreement with clinician review</div><div>Varies by reviewer</div><div style="color: #0E1B2B; font-weight: 600">95%, measured each run <span class="v">VERIFY internal validation</span></div></div>
-<div class="row"><div style="font-weight: 600; color: #0E1B2B">CQC evidence</div><div>Assembled by hand before inspection</div><div style="color: #0E1B2B; font-weight: 600">Built continuously, per quality statement</div></div>
-</div>
+<!-- COMPARE -->
+<section class="sec">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">What changes</p>
+      <h2 class="h2">From a quarterly sample to a weekly view of every record</h2>
+    </div>
+    <div class="tbl">
+      <div class="row h"><div></div><div>Manual sampling today</div><div style="color:var(--accent)">With Audit Angel AI</div></div>
+      <div class="row"><div class="k">Records reviewed</div><div>1–5% sample <span class="v">VERIFY</span></div><div class="y">100%, every week</div></div>
+      <div class="row"><div class="k">Consultation to finding</div><div>Next audit cycle, often months later</div><div class="y">Within 7 days <span class="v">VERIFY</span></div></div>
+      <div class="row"><div class="k">Clinician time</div><div>Reading and scoring every sampled case</div><div class="y">Reviewing flagged cases only</div></div>
+      <div class="row"><div class="k">Agreement with clinician review</div><div>Varies by reviewer</div><div class="y">95%, measured each run <span class="v">VERIFY internal validation</span></div></div>
+      <div class="row"><div class="k">CQC evidence</div><div>Assembled by hand before inspection</div><div class="y">Built continuously, per quality statement</div></div>
+    </div>
+  </div>
 </section>
 
-<!-- HOW IT WORKS -->
-<section id="how" style="background: #0E1B2B; color: #F6F7F4">
-<div style="max-width: 1200px; margin: 0 auto; padding: 96px 32px; display: flex; flex-direction: column; gap: 48px">
-<div style="display: flex; flex-direction: column; gap: 16px; max-width: 760px">
-<p class="eyebrow" style="color: #7FD1C7">How it works</p>
-<h2 class="h2" style="color: #FFFFFF">Connect. Clean. Check. Act.</h2>
-<p class="lead" style="color: #C9D2DC">Four steps your team can explain to a Caldicott Guardian in one breath.</p>
-</div>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px">
-<div style="border: 1px solid #2A3A4E; border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 12px"><span class="mono" style="color: #7FD1C7; font-size: 14px">01 · Connect</span><h3 style="margin: 0; font-size: 20px; color: #FFFFFF">Start from exports you already run</h3><p style="margin: 0; color: #C9D2DC; line-height: 1.6">EMIS, SystmOne, Adastra or your care system's CSV. No integration project to begin. Live connections come later, set up by our team.</p></div>
-<div style="border: 1px solid #2A3A4E; border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 12px"><span class="mono" style="color: #7FD1C7; font-size: 14px">02 · Clean</span><h3 style="margin: 0; font-size: 20px; color: #FFFFFF">Identifiers removed in your environment</h3><p style="margin: 0; color: #C9D2DC; line-height: 1.6">A privacy filter running on your side strips names, NHS numbers, addresses and dates. We measure and publish its accuracy for every deployment.</p></div>
-<div style="border: 1px solid #2A3A4E; border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 12px"><span class="mono" style="color: #7FD1C7; font-size: 14px">03 · Check</span><h3 style="margin: 0; font-size: 20px; color: #FFFFFF">Every record against your standards</h3><p style="margin: 0; color: #C9D2DC; line-height: 1.6">NICE, RCGP, UKHSA and the CQC quality statements, plus your own local rules and formularies, applied to 100% of cases.</p></div>
-<div style="border: 1px solid #2A3A4E; border-radius: 12px; padding: 28px; display: flex; flex-direction: column; gap: 12px"><span class="mono" style="color: #7FD1C7; font-size: 14px">04 · Act</span><h3 style="margin: 0; font-size: 20px; color: #FFFFFF">Findings become tasks, not homework</h3><p style="margin: 0; color: #C9D2DC; line-height: 1.6">A prioritised task list, per-clinician feedback and a CQC evidence pack. The AI flags. Your clinicians decide.</p></div>
-</div>
-</div>
+<!-- HOW -->
+<section class="sec dark" id="how">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">How it works</p>
+      <h2 class="h2">Connect. Clean. Check. Act.</h2>
+      <p class="lead">Four steps your team can explain to a Caldicott Guardian in one breath.</p>
+    </div>
+    <div class="grid g4">
+      <div class="step"><span class="n">01 · Connect</span><h3>Start from exports you already run</h3><p>EMIS, SystmOne, Adastra or your care system's CSV. No integration project to begin. Live connections come later, set up by our team.</p></div>
+      <div class="step"><span class="n">02 · Clean</span><h3>Identifiers removed in your environment</h3><p>A privacy filter running on your side strips names, NHS numbers, addresses and dates. We measure and publish its accuracy for every deployment.</p></div>
+      <div class="step"><span class="n">03 · Check</span><h3>Every record against your standards</h3><p>NICE, RCGP, UKHSA and the CQC quality statements, plus your own local rules and formularies, applied to 100% of cases.</p></div>
+      <div class="step"><span class="n">04 · Act</span><h3>Findings become tasks, not homework</h3><p>A prioritised task list, per-clinician feedback and a CQC evidence pack. The AI flags. Your clinicians decide.</p></div>
+    </div>
+  </div>
 </section>
 
-<!-- SAMPLE FINDING (taste of Aha) -->
-<section id="sample" style="max-width: 1200px; margin: 0 auto; padding: 96px 32px; display: flex; flex-direction: column; gap: 32px">
-<div style="display: flex; flex-direction: column; gap: 16px; max-width: 760px">
-<p class="eyebrow">A sample finding</p>
-<h2 class="h2">One record, start to finish</h2>
-<p class="lead">Fictional patient. This is what a single flagged case looks like at each step.</p>
-</div>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px">
-<div class="card" style="gap: 14px">
-<span class="mono" style="font-size: 13px; color: #5A6675">1 · Raw note (never leaves your environment)</span>
-<p class="mono" style="font-size: 14px; line-height: 1.7; color: #0E1B2B; margin: 0"><mark style="background: #FCEBD2; color: #0E1B2B">Mrs Eleanor Vance</mark>, NHS <mark style="background: #FCEBD2; color: #0E1B2B">485 777 3456</mark>, <mark style="background: #FCEBD2; color: #0E1B2B">14 Oak Lane</mark>. 78F. Methotrexate 15 mg weekly. Repeat issued <mark style="background: #FCEBD2; color: #0E1B2B">02/10/2026</mark>. Last FBC/LFT <mark style="background: #FCEBD2; color: #0E1B2B">11/06/2026</mark>. No bloods requested.</p>
-</div>
-<div class="card" style="gap: 14px">
-<span class="mono" style="font-size: 13px; color: #5A6675">2 · After the privacy filter</span>
-<p class="mono" style="font-size: 14px; line-height: 1.7; color: #0E1B2B; margin: 0"><span style="background: #DCEFEC; color: #08433E; padding: 0 4px; border-radius: 3px">[PATIENT]</span>, NHS <span style="background: #DCEFEC; color: #08433E; padding: 0 4px; border-radius: 3px">[NHS_NO]</span>, <span style="background: #DCEFEC; color: #08433E; padding: 0 4px; border-radius: 3px">[ADDRESS]</span>. 78F. Methotrexate 15 mg weekly. Repeat issued <span style="background: #DCEFEC; color: #08433E; padding: 0 4px; border-radius: 3px">[DAY 0]</span>. Last FBC/LFT <span style="background: #DCEFEC; color: #08433E; padding: 0 4px; border-radius: 3px">[DAY −113]</span>. No bloods requested.</p>
-</div>
-<div class="card" style="gap: 14px; border-color: #E9B77C">
-<span class="mono" style="font-size: 13px; color: #5A6675">3 · Audit result</span>
-<div style="display: flex; align-items: center; gap: 8px"><span style="width: 10px; height: 10px; border-radius: 50%; background: #A3470A" aria-hidden="true"></span><strong style="font-size: 16px">High-risk drug monitoring: flagged</strong></div>
-<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #3D4A5A">Repeat issued with monitoring bloods overdue (over 12 weeks). <span class="v">VERIFY standard + interval</span></p>
-<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #3D4A5A"><strong style="color: #0E1B2B">CQC:</strong> Safe · Medicines optimisation</p>
-<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #3D4A5A"><strong style="color: #0E1B2B">Suggested action:</strong> recall for FBC/LFT before next issue.</p>
-<p class="mono" style="margin: 0; font-size: 13px; color: #0B5E57">Status: awaiting clinician review</p>
-</div>
-</div>
+<!-- SAMPLE FINDING -->
+<section class="sec" id="sample">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">A sample finding</p>
+      <h2 class="h2">One record, start to finish</h2>
+      <p class="lead">Fictional patient. This is what a single flagged case looks like at each step.</p>
+    </div>
+    <div class="grid g3">
+      <div class="card">
+        <span style="font-size:13px;font-weight:600;color:var(--muted)">1 · Raw note (never leaves your environment)</span>
+        <p class="mono" style="font-size:13.5px;line-height:1.75;color:var(--ink)"><mark style="background:#FCEBD2">Mrs Eleanor Vance</mark>, NHS <mark style="background:#FCEBD2">485 777 3456</mark>, <mark style="background:#FCEBD2">14 Oak Lane</mark>. 78F. Methotrexate 15 mg weekly. Repeat issued <mark style="background:#FCEBD2">02/10/2026</mark>. Last FBC/LFT <mark style="background:#FCEBD2">11/06/2026</mark>. No bloods requested.</p>
+      </div>
+      <div class="card">
+        <span style="font-size:13px;font-weight:600;color:var(--muted)">2 · After the privacy filter</span>
+        <p class="mono" style="font-size:13.5px;line-height:1.75;color:var(--ink)"><span style="background:#DDF5F6;color:#055F6C;padding:0 4px;border-radius:3px">[PATIENT]</span>, NHS <span style="background:#DDF5F6;color:#055F6C;padding:0 4px;border-radius:3px">[NHS_NO]</span>, <span style="background:#DDF5F6;color:#055F6C;padding:0 4px;border-radius:3px">[ADDRESS]</span>. 78F. Methotrexate 15 mg weekly. Repeat issued <span style="background:#DDF5F6;color:#055F6C;padding:0 4px;border-radius:3px">[DAY 0]</span>. Last FBC/LFT <span style="background:#DDF5F6;color:#055F6C;padding:0 4px;border-radius:3px">[DAY −113]</span>. No bloods requested.</p>
+      </div>
+      <div class="card" style="border-color:#F2B8B8">
+        <span style="font-size:13px;font-weight:600;color:var(--muted)">3 · Audit result</span>
+        <div style="display:flex;align-items:center;gap:10px"><span class="pill p-hi" style="font-family:Inter,sans-serif">High risk</span><strong style="font-size:16px">High-risk drug monitoring</strong></div>
+        <p>Repeat issued with monitoring bloods overdue (over 12 weeks). <span class="v">VERIFY standard + interval</span></p>
+        <p><strong style="color:var(--ink)">CQC:</strong> Safe · Medicines optimisation</p>
+        <p><strong style="color:var(--ink)">Suggested action:</strong> recall for FBC/LFT before next issue.</p>
+        <p style="font-size:13px;font-weight:600;color:var(--accent)">Status: awaiting clinician review</p>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- WHAT'S WRONG WITH THE CURRENT WAY -->
-<section style="background: #ECEFEA">
-<div style="max-width: 1200px; margin: 0 auto; padding: 96px 32px; display: flex; flex-wrap: wrap; gap: 48px">
-<div style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
-<p class="eyebrow">Why the usual way keeps failing</p>
-<h2 class="h2">Sampling was built for paper. Your risk isn't.</h2>
-</div>
-<div style="flex: 999 1 560px; min-width: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px">
-<div class="card"><h3>Small samples miss rare harms</h3><p>The serious, uncommon pattern is exactly the one a 1-in-50 sample is least likely to catch.</p></div>
-<div class="card"><h3>Findings arrive too late</h3><p>By the time a quarterly audit reports, the same habit has repeated hundreds of times.</p></div>
-<div class="card"><h3>Audit software still needs you to pick and score</h3><p>Most tools digitise the spreadsheet. A clinician still chooses the cases and reads every one.</p></div>
-<div class="card"><h3>General AI tools can't touch patient records</h3><p>Pasting notes into a chatbot fails information governance on day one, and should.</p></div>
-</div>
-</div>
+<!-- INSIDE THE PLATFORM -->
+<section class="sec soft">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Inside Audit Angel</p>
+      <h2 class="h2">The AI sits inside a platform clinicians already use</h2>
+      <p class="lead">Cases, clinician audits, per-clinician scores and reporting are already live. AI auditing adds coverage without adding a new tool to learn.</p>
+    </div>
+    <div class="grid g3">
+      <div><div class="shot"><img src="https://audit-angel.co.uk/_nuxt/img/about1.b70494f.svg" alt="Cases list with case reference, clinician and location" loading="lazy" width="1356" height="930"></div><div class="cap"><b>Cases</b><span>Every imported consultation in one list, by clinician, location and date.</span></div></div>
+      <div><div class="shot"><img src="https://audit-angel.co.uk/_nuxt/img/about2.09ab43e.svg" alt="Clinical documentation audit form for a single case" loading="lazy" width="1356" height="930"></div><div class="cap"><b>Clinician &amp; special audits</b><span>Structured audit forms with a full history of who reviewed what, and when.</span></div></div>
+      <div><div class="shot"><img src="https://audit-angel.co.uk/_nuxt/img/about3.835800a.svg" alt="Clinicians table with cases reviewed and scores" loading="lazy" width="1356" height="930"></div><div class="cap"><b>Clinician status</b><span>Cases reviewed and scores per clinician, ready for appraisal and feedback.</span></div></div>
+    </div>
+  </div>
 </section>
 
-<!-- FEAR REDUCTION -->
-<section id="security" style="max-width: 1200px; margin: 0 auto; padding: 96px 32px; display: flex; flex-direction: column; gap: 40px">
-<div style="display: flex; flex-direction: column; gap: 16px; max-width: 760px">
-<p class="eyebrow">Security, safety &amp; IG</p>
-<h2 class="h2">The questions your Caldicott Guardian will ask, answered up front</h2>
-</div>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px">
-<div class="card"><h3>"Does patient data leave our control?"</h3><p>Identifiers are removed inside your environment first. The AI checker runs under zero-data-retention terms: nothing stored, nothing used for training. <span class="v">VERIFY contract terms + region</span> You stay the data controller; we act as processor.</p></div>
-<div class="card"><h3>"What if the AI gets it wrong?"</h3><p>It never decides. Every flag goes to a clinician. Each run includes a clinician-checked sample, and we publish the agreement rate to you.</p></div>
-<div class="card"><h3>"Our IT team has no capacity."</h3><p>Our setup team does the work. The pilot runs from exports you already produce, so there's no integration project to approve.</p></div>
-<div class="card"><h3>"IG sign-off will take months."</h3><p>You get a DPIA template, DTAC pack, clinical safety case and hazard log on day one, ready for your IG and clinical safety leads.</p></div>
-<div class="card"><h3>"What if it finds nothing useful?"</h3><p>The pilot is fixed price with a defined output. If the findings don't justify going further, you keep the report and stop there.</p></div>
-<div class="card"><h3>"Is this a medical device?"</h3><p>Audit Angel supports governance review; clinicians make every clinical decision. <span class="v">VERIFY regulatory position before publishing</span></p></div>
-</div>
+<!-- WHY USUAL FAILS -->
+<section class="sec">
+  <div class="wrap" style="display:flex;flex-wrap:wrap;gap:48px">
+    <div style="flex:1 1 320px;min-width:0;display:flex;flex-direction:column;gap:14px">
+      <p class="eyebrow">Why the usual way keeps failing</p>
+      <h2 class="h2">Sampling was built for paper. Your risk isn't.</h2>
+    </div>
+    <div class="grid" style="flex:999 1 560px;min-width:0;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
+      <div class="card"><h3>Small samples miss rare harms</h3><p>The serious, uncommon pattern is exactly the one a 1-in-50 sample is least likely to catch.</p></div>
+      <div class="card"><h3>Findings arrive too late</h3><p>By the time a quarterly audit reports, the same habit has repeated hundreds of times.</p></div>
+      <div class="card"><h3>Audit software still needs you to pick and score</h3><p>Most tools digitise the spreadsheet. A clinician still chooses the cases and reads every one.</p></div>
+      <div class="card"><h3>General AI tools can't touch patient records</h3><p>Pasting notes into a chatbot fails information governance on day one, and should.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SECURITY -->
+<section class="sec soft" id="security">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Security, safety &amp; IG</p>
+      <h2 class="h2">The questions your Caldicott Guardian will ask, answered up front</h2>
+    </div>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
+      <div class="card"><h3>"Does patient data leave our control?"</h3><p>Identifiers are removed inside your environment first. The AI checker runs under zero-data-retention terms: nothing stored, nothing used for training. <span class="v">VERIFY contract terms + region</span> You stay the data controller; we act as processor.</p></div>
+      <div class="card"><h3>"What if the AI gets it wrong?"</h3><p>It never decides. Every flag goes to a clinician. Each run includes a clinician-checked sample, and we publish the agreement rate to you.</p></div>
+      <div class="card"><h3>"Our IT team has no capacity."</h3><p>Our setup team does the work. The pilot runs from exports you already produce, so there's no integration project to approve.</p></div>
+      <div class="card"><h3>"IG sign-off will take months."</h3><p>You get a DPIA template, DTAC pack, clinical safety case and hazard log on day one, ready for your IG and clinical safety leads.</p></div>
+      <div class="card"><h3>"What if it finds nothing useful?"</h3><p>The pilot is fixed price with a defined output. If the findings don't justify going further, you keep the report and stop there.</p></div>
+      <div class="card"><h3>"Is this a medical device?"</h3><p>Audit Angel supports governance review; clinicians make every clinical decision. <span class="v">VERIFY regulatory position before publishing</span></p></div>
+    </div>
+  </div>
 </section>
 
 <!-- SECTORS -->
-<section style="background: #FFFFFF; border-top: 1px solid #DDE2DA; border-bottom: 1px solid #DDE2DA">
-<div style="max-width: 1200px; margin: 0 auto; padding: 96px 32px; display: flex; flex-direction: column; gap: 40px">
-<div style="display: flex; flex-direction: column; gap: 16px; max-width: 760px">
-<p class="eyebrow">Where it's used</p>
-<h2 class="h2">Built for organisations with more records than reviewers</h2>
-</div>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px">
-<div class="card" style="background: #F6F7F4"><h3>Urgent care, 111 &amp; out-of-hours</h3><p>Safety-netting, red flags and onward referral checked on every contact, straight from Adastra.</p></div>
-<div class="card" style="background: #F6F7F4"><h3>GP federations &amp; PCNs</h3><p>High-risk drug monitoring, pathology follow-up and NICE adherence across every practice.</p></div>
-<div class="card" style="background: #F6F7F4"><h3>Care home &amp; home care groups</h3><p>Daily notes, MAR charts, missed visits and safeguarding triggers across every branch.</p></div>
-<div class="card" style="background: #F6F7F4"><h3>Private &amp; online clinics</h3><p>Consent, prescribing and remote safety-netting on every consultation, not a handful.</p></div>
-</div>
-</div>
+<section class="sec">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Where it's used</p>
+      <h2 class="h2">Built for organisations with more records than reviewers</h2>
+    </div>
+    <div class="grid g4">
+      <div class="card"><h3>Urgent care, 111 &amp; out-of-hours</h3><p>Safety-netting, red flags and onward referral checked on every contact, straight from Adastra.</p></div>
+      <div class="card"><h3>GP federations &amp; PCNs</h3><p>High-risk drug monitoring, pathology follow-up and NICE adherence across every practice.</p></div>
+      <div class="card"><h3>Care home &amp; home care groups</h3><p>Daily notes, MAR charts, missed visits and safeguarding triggers across every branch.</p></div>
+      <div class="card"><h3>Private &amp; online clinics</h3><p>Consent, prescribing and remote safety-netting on every consultation, not a handful.</p></div>
+    </div>
+  </div>
 </section>
 
 <!-- STATE B -->
-<section style="max-width: 1200px; margin: 0 auto; padding: 96px 32px; display: flex; flex-wrap: wrap; gap: 48px; align-items: center">
-<div style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
-<p class="eyebrow">What it looks like after</p>
-<h2 class="h2">Monday's governance meeting, three months from now</h2>
-<p class="lead">The dashboard shows every site and every clinician for last week. Three issues came up, and each already has an owner. The CQC evidence pack is up to date because it updates itself. Nobody stayed late pulling records, and when the inspector asks how you know care is safe, you can show them every case, not a sample.</p>
-</div>
-<div style="flex: 1 1 340px; min-width: 0">
-<div class="card" style="gap: 14px">
-<span class="mono" style="font-size: 13px; color: #5A6675">This week · all sites</span>
-<div style="display: flex; justify-content: space-between; border-bottom: 1px solid #ECEFEA; padding-bottom: 10px"><span>Records audited</span><strong>4,612</strong></div>
-<div style="display: flex; justify-content: space-between; border-bottom: 1px solid #ECEFEA; padding-bottom: 10px"><span>Open high-risk flags</span><strong style="color: #A3470A">3</strong></div>
-<div style="display: flex; justify-content: space-between; border-bottom: 1px solid #ECEFEA; padding-bottom: 10px"><span>Assigned to a clinician</span><strong>3 of 3</strong></div>
-<div style="display: flex; justify-content: space-between"><span>CQC pack</span><strong style="color: #0B5E57">Up to date</strong></div>
-<span class="mono" style="font-size: 12px; color: #5A6675">Illustrative example</span>
-</div>
-</div>
+<section class="sec soft">
+  <div class="wrap" style="display:flex;flex-wrap:wrap;gap:48px;align-items:center">
+    <div style="flex:999 1 520px;min-width:0;display:flex;flex-direction:column;gap:18px">
+      <p class="eyebrow">What it looks like after</p>
+      <h2 class="h2">Monday's governance meeting, three months from now</h2>
+      <p class="lead">The dashboard shows every site and every clinician for last week. Three issues came up, and each already has an owner. The CQC evidence pack is up to date because it updates itself. Nobody stayed late pulling records, and when the inspector asks how you know care is safe, you can show them every case, not a sample.</p>
+    </div>
+    <div style="flex:1 1 340px;min-width:0">
+      <div class="card" style="gap:14px">
+        <span style="font-size:13px;font-weight:600;color:var(--muted)">This week · all sites</span>
+        <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:10px"><span>Records audited</span><strong>4,612</strong></div>
+        <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:10px"><span>Open high-risk flags</span><strong style="color:#B42318">3</strong></div>
+        <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:10px"><span>Assigned to a clinician</span><strong>3 of 3</strong></div>
+        <div style="display:flex;justify-content:space-between"><span>CQC pack</span><strong style="color:var(--accent)">Up to date</strong></div>
+        <span style="font-size:12px;color:var(--muted)">Illustrative example</span>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- PRICING / OFFER LADDER -->
-<section id="pricing" style="background: #ECEFEA">
-<div style="max-width: 1200px; margin: 0 auto; padding: 96px 32px; display: flex; flex-direction: column; gap: 40px">
-<div style="display: flex; flex-direction: column; gap: 16px; max-width: 760px">
-<p class="eyebrow">Start small</p>
-<h2 class="h2">Prove it on one month of your own records</h2>
-</div>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; align-items: stretch">
-<div class="card">
-<span class="mono" style="font-size: 13px; color: #5A6675">Single site</span>
-<h3>Free CQC toolkit</h3>
-<p>CQC audit templates and mock inspections for one practice, home or clinic. Self-serve.</p>
-<div style="font-size: 28px; font-weight: 700">Free</div>
-<a href="https://cqc.audit-angel.co.uk" class="btn btn-s" style="margin-top: auto">Open the toolkit</a>
-</div>
-<div class="card" style="border: 2px solid #0B5E57">
-<span class="mono" style="font-size: 13px; color: #0B5E57">Recommended first step</span>
-<h3>Full-Record Audit Pilot</h3>
-<p>One month of records, one audit area you choose, run by our team from your exports. You get a findings report and a review session with your clinical leads.</p>
-<div style="font-size: 28px; font-weight: 700">[FIXED PRICE] <span class="v">PLACEHOLDER</span></div>
-<a href="#book" class="btn btn-p" style="margin-top: auto">Book a pilot call</a>
-</div>
-<div class="card">
-<span class="mono" style="font-size: 13px; color: #5A6675">Groups, 5+ sites</span>
-<h3>Continuous Audit</h3>
-<p>Weekly auditing of every record across all sites, with live connections, local rules and CQC packs maintained by our team.</p>
-<div style="font-size: 28px; font-weight: 700">[£ / site / year] <span class="v">PLACEHOLDER</span></div>
-<a href="#book" class="btn btn-s" style="margin-top: auto">Talk to us</a>
-</div>
-</div>
-</div>
+<!-- PRICING -->
+<section class="sec" id="pricing">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Start small</p>
+      <h2 class="h2">Prove it on one month of your own records</h2>
+    </div>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));align-items:stretch">
+      <div class="card">
+        <span style="font-size:13px;font-weight:600;color:var(--muted)">Single site</span>
+        <h3>Free CQC toolkit</h3>
+        <p>CQC audit templates and mock inspections for one practice, home or clinic. Self-serve.</p>
+        <div style="font-size:28px;font-weight:700">Free</div>
+        <a href="https://cqc.audit-angel.co.uk" class="btn btn-s" style="margin-top:auto">Open the toolkit</a>
+      </div>
+      <div class="card" style="border:2px solid var(--teal);box-shadow:0 14px 34px rgba(17,155,210,.16)">
+        <span style="font-size:13px;font-weight:600;color:var(--accent)">Recommended first step</span>
+        <h3>Full-Record Audit Pilot</h3>
+        <p>One month of records, one audit area you choose, run by our team from your exports. You get a findings report and a review session with your clinical leads.</p>
+        <div style="font-size:28px;font-weight:700">[FIXED PRICE] <span class="v">PLACEHOLDER</span></div>
+        <a href="#book" class="btn btn-p" style="margin-top:auto">Book a pilot call</a>
+      </div>
+      <div class="card">
+        <span style="font-size:13px;font-weight:600;color:var(--muted)">Groups, 5+ sites</span>
+        <h3>Continuous Audit</h3>
+        <p>Weekly auditing of every record across all sites, with live connections, local rules and CQC packs maintained by our team.</p>
+        <div style="font-size:28px;font-weight:700">[£ / site / year] <span class="v">PLACEHOLDER</span></div>
+        <a href="#book" class="btn btn-s" style="margin-top:auto">Talk to us</a>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- BOOK / FORM -->
-<section id="book" style="max-width: 1200px; margin: 0 auto; padding: 96px 32px; display: flex; flex-wrap: wrap; gap: 56px">
-<div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
-<p class="eyebrow">Book a pilot call</p>
-<h2 class="h2">20 minutes to scope your pilot</h2>
-<p class="lead">We'll ask which audit area worries you most, which system you use and how you export today. You leave with a pilot scope and price.</p>
-<ul style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; color: #3D4A5A; font-size: 16px; line-height: 1.5">
-<li>No integration needed for the pilot</li>
-<li>DPIA and DTAC pack shared before any data moves</li>
-<li>Reply within one working day <span class="v">VERIFY</span></li>
-</ul>
-</div>
-<form style="flex: 999 1 520px; min-width: 0; background: #FFFFFF; border: 1px solid #DDE2DA; border-radius: 12px; padding: 32px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px">
-<div class="field"><label for="aa-name">Name</label><input id="aa-name" type="text" autocomplete="name"></div>
-<div class="field"><label for="aa-email">Work email</label><input id="aa-email" type="email" autocomplete="email"></div>
-<div class="field"><label for="aa-org">Organisation</label><input id="aa-org" type="text" autocomplete="organization"></div>
-<div class="field"><label for="aa-sites">Number of sites</label><select id="aa-sites"><option>1</option><option>2–4</option><option>5–20</option><option>21–100</option><option>100+</option></select></div>
-<div class="field" style="grid-column: 1 / -1"><label for="aa-sys">Main clinical or care system</label><select id="aa-sys"><option>EMIS Web</option><option>SystmOne</option><option>Adastra</option><option>Nourish</option><option>Birdie</option><option>Other</option></select></div>
-<button type="button" class="btn btn-p" style="grid-column: 1 / -1; border: 0; cursor: pointer; font-family: inherit">Book a 20-minute pilot call</button>
-<p style="grid-column: 1 / -1; margin: 0; font-size: 13px; color: #5A6675">We use your details only to arrange this call. <a href="#privacy">Privacy notice</a></p>
-</form>
+<!-- BOOK -->
+<section class="sec soft" id="book">
+  <div class="wrap" style="display:flex;flex-wrap:wrap;gap:56px">
+    <div style="flex:1 1 340px;min-width:0;display:flex;flex-direction:column;gap:18px">
+      <p class="eyebrow">Book a pilot call</p>
+      <h2 class="h2">20 minutes to scope your pilot</h2>
+      <p class="lead">We'll ask which audit area worries you most, which system you use and how you export today. You leave with a pilot scope and price.</p>
+      <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px;color:var(--body);font-size:16px;line-height:1.5">
+        <li>No integration needed for the pilot</li>
+        <li>DPIA and DTAC pack shared before any data moves</li>
+        <li>Reply within one working day <span class="v">VERIFY</span></li>
+      </ul>
+    </div>
+    <form style="flex:999 1 520px;min-width:0;background:#fff;border:1px solid var(--line);border-radius:12px;padding:32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;box-shadow:0 10px 30px rgba(1,81,125,.08)">
+      <div class="field"><label for="aa-name">Name</label><input id="aa-name" type="text" autocomplete="name"></div>
+      <div class="field"><label for="aa-email">Work email</label><input id="aa-email" type="email" autocomplete="email"></div>
+      <div class="field"><label for="aa-org">Organisation</label><input id="aa-org" type="text" autocomplete="organization"></div>
+      <div class="field"><label for="aa-sites">Number of sites</label><select id="aa-sites"><option>1</option><option>2–4</option><option>5–20</option><option>21–100</option><option>100+</option></select></div>
+      <div class="field" style="grid-column:1/-1"><label for="aa-sys">Main clinical or care system</label><select id="aa-sys"><option>EMIS Web</option><option>SystmOne</option><option>Adastra</option><option>Nourish</option><option>Birdie</option><option>Other</option></select></div>
+      <button type="button" class="btn btn-p" style="grid-column:1/-1">Book a 20-minute pilot call</button>
+      <p style="grid-column:1/-1;margin:0;font-size:13px;color:var(--muted)">We use your details only to arrange this call. <a href="#privacy">Privacy notice</a> <span class="v">form not wired yet</span></p>
+    </form>
+  </div>
 </section>
 
-<!-- FOOTER -->
-<footer style="background: #0E1B2B; color: #C9D2DC">
-<div style="max-width: 1200px; margin: 0 auto; padding: 48px 32px; display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between; align-items: center; font-size: 14px">
-<span>Audit Angel is built by Codex Software <span class="v">VERIFY legal entity</span></span>
-<div style="display: flex; flex-wrap: wrap; gap: 24px">
-<a href="https://cqc.audit-angel.co.uk" style="color: #C9D2DC">CQC toolkit</a>
-<a href="https://codex-soft.com" style="color: #C9D2DC">Need custom healthcare engineering? Codex →</a>
-<a id="privacy" href="#privacy" style="color: #C9D2DC">Privacy</a>
-</div>
-</div>
+<footer>
+  <div class="wrap" style="padding-top:48px;padding-bottom:48px;display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:center;font-size:14px">
+    <span>Audit Angel is built by Codex Software <span class="v">VERIFY legal entity</span></span>
+    <div style="display:flex;flex-wrap:wrap;gap:24px">
+      <a href="https://audit-angel.co.uk">audit-angel.co.uk</a>
+      <a href="https://cqc.audit-angel.co.uk">CQC toolkit</a>
+      <a href="https://codex-soft.com">Need custom healthcare engineering? Codex →</a>
+      <a id="privacy" href="#privacy">Privacy</a>
+    </div>
+  </div>
 </footer>
 
-</div>
+<script>
+(function(){
+  var cases=[
+    ['001JC7TD20','Safety-netting','ok','Worsening advice and timeframe documented'],
+    ['002FF73MR','High-risk drug monitoring','hi','Methotrexate issued, FBC/LFT overdue > 12 weeks'],
+    ['01F1JC73FR','Antibiotic prescribing','rev','Antibiotic for sore throat with FeverPAIN 1 (NICE NG84)'],
+    ['0012F73MR','Red flags & escalation','ok','Red flags asked and recorded'],
+    ['0012F74MR','Safety-netting','rev','No safety-netting advice recorded'],
+    ['003JC7TD20','Consent & documentation','ok','Consent and history complete'],
+    ['004KD81PL','Red flags & escalation','hi','NEWS2 5, no escalation documented'],
+    ['0013M73RF','Antibiotic prescribing','ok','Delayed script in line with guidance']
+  ];
+  var LBL={pend:'Pending',run:'Auditing…',ok:'Compliant',rev:'Needs review',hi:'High risk'};
+  var tb=document.getElementById('ai-rows'), run=document.getElementById('ai-run'), reset=document.getElementById('ai-reset');
+  var prog=document.getElementById('ai-prog'), pg=document.getElementById('ai-pg');
+  var tC=document.getElementById('tab-cases'), tR=document.getElementById('tab-rep');
+  var pC=document.getElementById('pane-cases'), pR=document.getElementById('pane-rep');
+  var timers=[];
+  function pill(s){return '<span class="pill p-'+s+'">'+LBL[s]+'</span>'}
+  function render(){
+    tb.innerHTML=cases.map(function(c,i){return '<tr><td>'+c[0]+'</td><td class="hide-s">'+c[1]+'</td><td id="s'+i+'">'+pill('pend')+'</td><td class="f" id="f'+i+'">-</td></tr>'}).join('');
+  }
+  function set(id,v){document.getElementById(id).textContent=v}
+  function tab(r){tC.classList.toggle('on',!r);tR.classList.toggle('on',r);tC.setAttribute('aria-selected',!r);tR.setAttribute('aria-selected',r);pC.style.display=r?'none':'block';pR.style.display=r?'block':'none'}
+  tC.onclick=function(){tab(false)}; tR.onclick=function(){tab(true)};
+  function start(){
+    run.disabled=true; run.textContent='Auditing 0 / 36'; set('c-hi','0');set('c-rev','0');set('c-ok','0');
+    var totals={hi:2,rev:4,ok:30}, n=cases.length, step=520;
+    cases.forEach(function(c,i){
+      timers.push(setTimeout(function(){document.getElementById('s'+i).innerHTML=pill('run')},i*step));
+      timers.push(setTimeout(function(){
+        document.getElementById('s'+i).innerHTML=pill(c[2]);
+        document.getElementById('f'+i).textContent=c[3];
+        var done=Math.round((i+1)/n*36);
+        prog.style.width=((i+1)/n*100)+'%';
+        run.textContent='Auditing '+done+' / 36';
+        var f=(i+1)/n;
+        set('c-hi',Math.round(totals.hi*f));set('c-rev',Math.round(totals.rev*f));set('c-ok',Math.round(totals.ok*f));
+        if(i===n-1){
+          run.disabled=false; run.textContent='View report →'; run.onclick=function(){tab(true)};
+          reset.style.display='inline-flex';
+          document.getElementById('ai-sub').innerHTML='<b>Cases document.xlsx</b> · AI audit complete · 36 cases checked against NICE, CQC and local standards.';
+          pg.textContent='Showing 8 of 36 · 1 of 5';
+        }
+      },i*step+step*0.9));
+    });
+  }
+  function doReset(){
+    timers.forEach(clearTimeout); timers=[]; render(); tab(false);
+    prog.style.width='0'; set('c-hi','–');set('c-rev','–');set('c-ok','–');
+    run.disabled=false; run.textContent='✦ Run AI audit'; run.onclick=start; reset.style.display='none';
+    document.getElementById('ai-sub').innerHTML='<b>Cases document.xlsx</b> · 36 imported cases ready to audit against NICE, CQC and local standards.';
+    pg.textContent='Showing 8 of 36 · rows per page: 8';
+  }
+  reset.onclick=doReset; doReset();
+})();
+</script>
 </body>
 </html>
