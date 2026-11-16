@@ -18,7 +18,7 @@
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:'Poppins',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-img{max-width:100%;display:block}
+img{max-width:100%;height:auto;display:block}
 a{color:var(--accent)}a:hover{color:var(--navy)}
 .wrap{max-width:1200px;margin:0 auto;padding:0 32px}
 .sec{padding:96px 0}
@@ -42,7 +42,8 @@ a{color:var(--accent)}a:hover{color:var(--navy)}
 .mono{font-family:ui-monospace,Menlo,monospace}
 
 /* header + hero */
-.hero{position:relative;color:#fff;background:#01517D url(img/hero-bg.svg) center bottom/100% 100% no-repeat;padding-bottom:120px;overflow:hidden}
+.hero{position:relative;color:#fff;background:linear-gradient(170deg,#01517D 0%,#076E95 45%,#10A9C2 80%,#1CC9D3 100%);padding-bottom:150px;overflow:hidden}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:110px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 110' preserveAspectRatio='none'%3E%3Cpath d='M0 60C240 110 480 20 760 50s520 50 680-10v70H0z' fill='%23ffffff'/%3E%3Cpath d='M0 75C300 30 560 100 860 70s440-40 580 0v40H0z' fill='%23ffffff' opacity='.35'/%3E%3C/svg%3E") center bottom/100% 100% no-repeat;pointer-events:none}
 .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 12% 30%,rgba(255,255,255,.08) 0 60px,transparent 61px),radial-gradient(circle at 58% 12%,rgba(255,255,255,.07) 0 44px,transparent 45px),radial-gradient(circle at 88% 6%,rgba(255,255,255,.08) 0 38px,transparent 39px);pointer-events:none}
 .nav{position:relative;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding:22px 0}
 .nav a.lnk{color:rgba(255,255,255,.88);text-decoration:none;font-size:15px}.nav a.lnk:hover{color:#fff}
@@ -79,12 +80,13 @@ a{color:var(--accent)}a:hover{color:var(--navy)}
 .shot{border-radius:14px;overflow:hidden;background:#fff;border:1px solid var(--line);box-shadow:0 18px 40px rgba(1,81,125,.12)}
 .cap{display:flex;flex-direction:column;gap:6px;margin-top:16px}
 .cap b{font-size:17px;font-weight:600}.cap span{font-size:15px;color:var(--body);line-height:1.6}
-.demo-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:28px;align-items:start}
+.demo-steps{display:grid;grid-template-columns:minmax(0,1fr);gap:36px;align-items:start}
+@media (min-width:1000px){.demo-steps{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}}
 .tag{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--accent);background:#E3F6F7;border-radius:999px;padding:4px 12px;width:max-content}
 
 /* ===== App mock (AI audit) ===== */
 .app{font-family:'Inter',system-ui,sans-serif;background:#F4F5F7;border:1px solid #DADFE4;border-radius:14px;overflow:hidden;box-shadow:0 18px 40px rgba(1,81,125,.14);color:#1F2329}
-.app-bar{display:flex;align-items:center;gap:22px;background:#fff;border-bottom:1px solid #E4E7EB;padding:12px 20px;font-size:13.5px;font-weight:600}
+.app-bar{display:flex;align-items:center;gap:22px;white-space:nowrap;background:#fff;border-bottom:1px solid #E4E7EB;padding:12px 20px;font-size:13.5px;font-weight:600}
 .app-bar .dots{display:flex;gap:6px;margin-right:4px}.app-bar .dots i{width:10px;height:10px;border-radius:50%;display:block}
 .app-bar a{color:#1F2329;text-decoration:none}.app-bar .on{box-shadow:inset 0 -2px 0 var(--app-teal);padding-bottom:4px}
 .app-bar .who{margin-left:auto;display:flex;align-items:center;gap:8px;font-weight:600}
@@ -135,7 +137,6 @@ a{color:var(--accent)}a:hover{color:var(--navy)}
 footer{background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#BFD9E2}
 footer a{color:#BFD9E2}footer a:hover{color:#fff}
 
-@media (max-width:900px){.demo-steps{grid-template-columns:1fr}}
 @media (max-width:760px){
   .wrap{padding:0 20px}.sec{padding:72px 0}
   .h2{font-size:29px}.hero h1{font-size:38px}
@@ -143,7 +144,8 @@ footer a{color:#BFD9E2}footer a:hover{color:#fff}
   .nav nav a.lnk{display:none}
   .rep .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
   .bar{grid-template-columns:1fr 1fr 40px}
-  .mt .hide-s{display:none}
+  .hide-s{display:none}
+  .app-body{padding:10px}.modal{padding:18px 14px 16px}.app-bar{gap:16px;padding:12px 14px}
   .todo div{grid-template-columns:1fr}
 }
 </style>
@@ -225,7 +227,7 @@ footer a{color:#BFD9E2}footer a:hover{color:#fff}
     <div class="demo-steps">
       <div>
         <span class="tag">Step 1 · Import</span>
-        <div class="shot" style="margin-top:14px"><img src="img/import-summary.jpg" alt="Import summary: 40 cases, 2 with errors, 2 duplicates, 36 imported" width="1472" height="1120" loading="lazy"></div>
+        <div class="shot" style="margin-top:14px"><img src="img/import-summary.jpg" alt="Import summary: 40 cases, 2 with errors, 2 duplicates, 36 imported" width="1178" height="695" loading="lazy"></div>
         <div class="cap"><b>Upload the export you already run</b><span>EMIS, SystmOne, Adastra or a care system CSV. Audit Angel checks format and duplicates before anything is audited.</span></div>
       </div>
 
@@ -235,7 +237,7 @@ footer a{color:#BFD9E2}footer a:hover{color:#fff}
           <div class="app-bar">
             <span class="dots" aria-hidden="true"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i></span>
             <svg width="16" height="22" viewBox="0 0 28 40" fill="none" aria-hidden="true"><path fill-rule="evenodd" d="M22.2 33.96h5.4L16.18 1.7h-2.2L.9 38.4h1.7l1.58-4.44.58-1.61L15.08 3.4l10.25 28.95h-3.7L15.9 16.35h-1.7l-5.77 16-.58 1.61-1.6 4.44h1.71l1.6-4.44h10.94l1.6 4.44h1.7l-1.6-4.44zm-2.28-1.61L15.05 18.75l-4.91 13.6h9.78z" fill="#4FC3C9"/></svg>
-            <a href="#demo">Home</a><a href="#demo">Clinicians</a><a href="#demo" class="on">Cases</a><a href="#demo" class="hide-s">Audit ▾</a>
+            <a href="#demo">Home</a><a href="#demo" class="hide-s">Clinicians</a><a href="#demo" class="on">Cases</a><a href="#demo" class="hide-s">Audit ▾</a>
             <span class="who"><span class="av">JD</span><span class="hide-s">Dr. John Davison</span></span>
           </div>
           <div class="app-body">
@@ -250,9 +252,9 @@ footer a{color:#BFD9E2}footer a:hover{color:#fff}
               <div id="pane-cases">
                 <div class="legend" aria-live="polite">
                   <span>All cases - <b id="c-all">36</b></span>
-                  <span><i style="background:#F28C8C"></i>High risk - <b id="c-hi">–</b></span>
-                  <span><i style="background:#F5C842"></i>Needs review - <b id="c-rev">–</b></span>
-                  <span><i style="background:#9ACD8A"></i>Compliant - <b id="c-ok">–</b></span>
+                  <span><i style="background:#F28C8C"></i>High risk - <b id="c-hi">0</b></span>
+                  <span><i style="background:#F5C842"></i>Needs review - <b id="c-rev">0</b></span>
+                  <span><i style="background:#9ACD8A"></i>Compliant - <b id="c-ok">0</b></span>
                 </div>
                 <div class="prog" aria-hidden="true"><i id="ai-prog"></i></div>
                 <div style="overflow-x:auto">
@@ -288,7 +290,7 @@ footer a{color:#BFD9E2}footer a:hover{color:#fff}
                 </div>
               </div>
 
-              <div class="mfoot">
+              <div class="mfoot" id="ai-foot">
                 <span class="pg" id="ai-pg">Showing 8 of 36 · rows per page: 8</span>
                 <div style="display:flex;gap:10px;flex-wrap:wrap">
                   <button class="abtn ghost" id="ai-reset" style="display:none">Reset</button>
@@ -549,7 +551,7 @@ footer a{color:#BFD9E2}footer a:hover{color:#fff}
     tb.innerHTML=cases.map(function(c,i){return '<tr><td>'+c[0]+'</td><td class="hide-s">'+c[1]+'</td><td id="s'+i+'">'+pill('pend')+'</td><td class="f" id="f'+i+'">-</td></tr>'}).join('');
   }
   function set(id,v){document.getElementById(id).textContent=v}
-  function tab(r){tC.classList.toggle('on',!r);tR.classList.toggle('on',r);tC.setAttribute('aria-selected',!r);tR.setAttribute('aria-selected',r);pC.style.display=r?'none':'block';pR.style.display=r?'block':'none'}
+  function tab(r){tC.classList.toggle('on',!r);tR.classList.toggle('on',r);tC.setAttribute('aria-selected',!r);tR.setAttribute('aria-selected',r);pC.style.display=r?'none':'block';pR.style.display=r?'block':'none';pg.style.visibility=r?'hidden':'visible';run.style.display=(r&&run.textContent.indexOf('View')===0)?'none':'inline-flex'}
   tC.onclick=function(){tab(false)}; tR.onclick=function(){tab(true)};
   function start(){
     run.disabled=true; run.textContent='Auditing 0 / 36'; set('c-hi','0');set('c-rev','0');set('c-ok','0');
@@ -575,7 +577,7 @@ footer a{color:#BFD9E2}footer a:hover{color:#fff}
   }
   function doReset(){
     timers.forEach(clearTimeout); timers=[]; render(); tab(false);
-    prog.style.width='0'; set('c-hi','–');set('c-rev','–');set('c-ok','–');
+    prog.style.width='0'; set('c-hi','0');set('c-rev','0');set('c-ok','0');
     run.disabled=false; run.textContent='✦ Run AI audit'; run.onclick=start; reset.style.display='none';
     document.getElementById('ai-sub').innerHTML='<b>Cases document.xlsx</b> · 36 imported cases ready to audit against NICE, CQC and local standards.';
     pg.textContent='Showing 8 of 36 · rows per page: 8';
