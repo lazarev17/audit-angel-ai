@@ -206,7 +206,6 @@ footer a{color:#BFD9E2}footer a:hover{color:#fff}
         <a class="lnk" href="#demo">AI Bulk Audit</a>
         <a class="lnk" href="#co-auditor">AI Co-Auditor</a>
         <a class="lnk" href="#how">How it works</a>
-        <a class="lnk" href="#security">Security &amp; IG</a>
         <a class="lnk" href="https://app.audit-angel.co.uk/" rel="nofollow">Login</a>
         <a href="#book" class="btn btn-p" style="min-height:44px;font-size:15px">Book a pilot call</a>
       </nav>
@@ -452,15 +451,15 @@ footer a{color:#BFD9E2}footer a:hover{color:#fff}
     <div class="head">
       <p class="eyebrow">A sample finding</p>
       <h2 class="h2">One record, start to finish</h2>
-      <p class="lead">Fictional patient. This is what a single flagged case looks like at each step.</p>
+      <p class="lead">Fictional patient. Patient data is anonymised at the point of data import: identifiers are stripped before the record is stored in Audit Angel or seen by any AI.</p>
     </div>
     <div class="grid g3">
       <div class="card">
-        <span style="font-size:13px;font-weight:600;color:var(--muted)">1 · Raw note (never leaves your environment)</span>
+        <span style="font-size:13px;font-weight:600;color:var(--muted)">1 · Raw note in your export</span>
         <p class="mono" style="font-size:13.5px;line-height:1.75;color:var(--ink)"><mark style="background:#FCEBD2">Mrs Eleanor Vance</mark>, NHS <mark style="background:#FCEBD2">485 777 3456</mark>, <mark style="background:#FCEBD2">14 Oak Lane</mark>. 78F. Methotrexate 15 mg weekly. Repeat issued <mark style="background:#FCEBD2">02/10/2026</mark>. Last FBC/LFT <mark style="background:#FCEBD2">11/06/2026</mark>. No bloods requested.</p>
       </div>
       <div class="card">
-        <span style="font-size:13px;font-weight:600;color:var(--muted)">2 · After the privacy filter</span>
+        <span style="font-size:13px;font-weight:600;color:var(--muted)">2 · Anonymised at data import</span>
         <p class="mono" style="font-size:13.5px;line-height:1.75;color:var(--ink)"><span style="background:#DDF5F6;color:#055F6C;padding:0 4px;border-radius:3px">[PATIENT]</span>, NHS <span style="background:#DDF5F6;color:#055F6C;padding:0 4px;border-radius:3px">[NHS_NO]</span>, <span style="background:#DDF5F6;color:#055F6C;padding:0 4px;border-radius:3px">[ADDRESS]</span>. 78F. Methotrexate 15 mg weekly. Repeat issued <span style="background:#DDF5F6;color:#055F6C;padding:0 4px;border-radius:3px">[DAY 0]</span>. Last FBC/LFT <span style="background:#DDF5F6;color:#055F6C;padding:0 4px;border-radius:3px">[DAY −113]</span>. No bloods requested.</p>
       </div>
       <div class="card" style="border-color:#F2B8B8">
@@ -503,24 +502,6 @@ footer a{color:#BFD9E2}footer a:hover{color:#fff}
       <div class="card"><h3>Findings arrive too late</h3><p>By the time a quarterly audit reports, the same habit has repeated hundreds of times.</p></div>
       <div class="card"><h3>Audit software still needs you to pick and score</h3><p>Most tools digitise the spreadsheet. A clinician still chooses the cases and reads every one.</p></div>
       <div class="card"><h3>General AI tools can't touch patient records</h3><p>Pasting notes into a chatbot fails information governance on day one, and should.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- SECURITY -->
-<section class="sec soft" id="security">
-  <div class="wrap">
-    <div class="head">
-      <p class="eyebrow">Security, safety &amp; IG</p>
-      <h2 class="h2">The questions your Caldicott Guardian will ask, answered up front</h2>
-    </div>
-    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr))">
-      <div class="card"><h3>"Does patient data leave our control?"</h3><p>Identifiers are removed inside your environment first. The AI checker runs under zero-data-retention terms: nothing stored, nothing used for training. You stay the data controller; we act as processor.</p></div>
-      <div class="card"><h3>"What if the AI gets it wrong?"</h3><p>It never decides. Every flag goes to a clinician. Each run includes a clinician-checked sample, and we publish the agreement rate to you.</p></div>
-      <div class="card"><h3>"Our IT team has no capacity."</h3><p>Our setup team does the work. The pilot runs from exports you already produce, so there's no integration project to approve.</p></div>
-      <div class="card"><h3>"IG sign-off will take months."</h3><p>You get a DPIA template, DTAC pack, clinical safety case and hazard log on day one, ready for your IG and clinical safety leads.</p></div>
-      <div class="card"><h3>"What if it finds nothing useful?"</h3><p>The pilot is fixed price with a defined output. If the findings don't justify going further, you keep the report and stop there.</p></div>
-      <div class="card"><h3>"Is this a medical device?"</h3><p>Audit Angel supports governance review; clinicians make every clinical decision.</p></div>
     </div>
   </div>
 </section>
