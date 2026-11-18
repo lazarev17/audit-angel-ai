@@ -1,0 +1,27 @@
+# Audit Angel AI
+
+> AI clinical audit software for NHS and UK healthcare providers. Audit Angel AI audits 100% of consultations and care notes against NICE, RCGP and CQC standards instead of a small manual sample. Clinicians make every decision.
+
+Audit Angel AI is built by Codex Software Solutions Ltd (company number 09712933, Cirencester, UK), the team behind the Audit Angel clinical audit platform (https://audit-angel.co.uk). Contact: contact@audit-angel.co.uk.
+
+## Features
+- AI Bulk Audit: import a consultation export (EMIS Web, SystmOne, Adastra or a care system CSV) and the AI audits every case. Each case gets a status (compliant, needs review, high risk), the reason, and the standard it was checked against. A report groups findings by audit area and turns them into tasks.
+- AI Co-Auditor: when a clinician audits a case by hand, the AI suggests a score for each audit question with the supporting sentence from the note. The auditor accepts or changes every score; there is no "accept all". Suggestions, final scores and overrides are logged.
+- Patient data is anonymised at the point of data import: identifiers are removed before records are stored or seen by any AI.
+- Agreement between AI and clinician review is measured on every run and is over 95%.
+- Typical audit areas: safety-netting, antibiotic prescribing (NICE NG84), high-risk drug monitoring, red flags and escalation, consent and documentation.
+
+## Who it is for
+Clinical directors and clinical governance leads at GP federations and PCNs, urgent care, NHS 111 and out-of-hours providers, care home and home care groups, and private or online clinics in the UK.
+
+## Security and assurance
+ISO/IEC 27001 (UKAS accredited), Cyber Essentials, NHS DSPT "Standards met", DCB0129 clinical safety case, UK data residency.
+
+## Links
+- Product page: https://audit-angel-ai.vercel.app/
+- AI Bulk Audit demo: https://audit-angel-ai.vercel.app/#demo
+- AI Co-Auditor demo: https://audit-angel-ai.vercel.app/#co-auditor
+- FAQ: https://audit-angel-ai.vercel.app/#faq
+- Book a demo: https://audit-angel-ai.vercel.app/#book
+- Audit Angel platform: https://audit-angel.co.uk
+- Free CQC toolkit: https://cqc.audit-angel.co.uk
