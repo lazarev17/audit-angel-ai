@@ -8,6 +8,7 @@ Audit Angel AI is built by Codex Software Solutions Ltd (company number 09712933
 - AI Bulk Audit: import a consultation export (EMIS Web, SystmOne, Adastra or a care system CSV) and the AI audits every case. Each case gets a status (compliant, needs review, high risk), the reason, and the standard it was checked against. A report groups findings by audit area and turns them into tasks.
 - AI Co-Auditor: when a clinician audits a case by hand, the AI suggests a score for each audit question with the supporting sentence from the note. The auditor accepts or changes every score; there is no "accept all". Suggestions, final scores and overrides are logged.
 - Patient data is anonymised at the point of data import: identifiers are removed before records are stored or seen by any AI.
+- Private deployment: the language model can be hosted on the customer's own servers (data centre or private cloud tenancy), so patient data never leaves their environment and is never sent to an external AI provider.
 - Agreement between AI and clinician review is measured on every run and is over 95%.
 - Typical audit areas: safety-netting, antibiotic prescribing (NICE NG84), high-risk drug monitoring, red flags and escalation, consent and documentation.
 
@@ -21,6 +22,7 @@ ISO/IEC 27001 (UKAS accredited), Cyber Essentials, NHS DSPT "Standards met", DCB
 - Product page: https://ai.audit-angel.co.uk/
 - AI Bulk Audit demo: https://ai.audit-angel.co.uk/#demo
 - AI Co-Auditor demo: https://ai.audit-angel.co.uk/#co-auditor
+- Private AI deployment: https://ai.audit-angel.co.uk/#private-ai
 - FAQ: https://ai.audit-angel.co.uk/#faq
 - Book a demo: https://ai.audit-angel.co.uk/#book
 - Audit Angel platform: https://audit-angel.co.uk
