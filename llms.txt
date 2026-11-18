@@ -18,10 +18,10 @@ Clinical directors and clinical governance leads at GP federations and PCNs, urg
 ISO/IEC 27001 (UKAS accredited), Cyber Essentials, NHS DSPT "Standards met", DCB0129 clinical safety case, UK data residency.
 
 ## Links
-- Product page: https://audit-angel-ai.vercel.app/
-- AI Bulk Audit demo: https://audit-angel-ai.vercel.app/#demo
-- AI Co-Auditor demo: https://audit-angel-ai.vercel.app/#co-auditor
-- FAQ: https://audit-angel-ai.vercel.app/#faq
-- Book a demo: https://audit-angel-ai.vercel.app/#book
+- Product page: https://ai.audit-angel.co.uk/
+- AI Bulk Audit demo: https://ai.audit-angel.co.uk/#demo
+- AI Co-Auditor demo: https://ai.audit-angel.co.uk/#co-auditor
+- FAQ: https://ai.audit-angel.co.uk/#faq
+- Book a demo: https://ai.audit-angel.co.uk/#book
 - Audit Angel platform: https://audit-angel.co.uk
 - Free CQC toolkit: https://cqc.audit-angel.co.uk

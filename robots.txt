@@ -18,4 +18,4 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://audit-angel-ai.vercel.app/sitemap.xml
+Sitemap: https://ai.audit-angel.co.uk/sitemap.xml
