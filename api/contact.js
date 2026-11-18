@@ -2,6 +2,7 @@
 // Sends the request by email (Resend) to contact@audit-angel.co.uk and to the team Telegram chat.
 // Env (set in the Vercel project, same values as the audit-angel-cqc project):
 //   TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, RESEND_API_KEY
+// If none are set, the request is relayed to cqc.audit-angel.co.uk/api/public/demo-request, which has them.
 //   optional: CONTACT_TO (default contact@audit-angel.co.uk), MAIL_FROM (default Audit Angel AI <hello@audit-angel.co.uk>)
 // GET /api/contact?check=1 reports which channels are configured (booleans only, never secrets).
 
@@ -10,6 +11,7 @@ const clean = v => String(v || '').trim().replace(/^[`'"\s]+|[`'"\s]+$/g, '').re
 const cleanToken = v => { const c = clean(v); const m = c.match(/\d{6,12}:[A-Za-z0-9_-]{30,50}(?![A-Za-z0-9_-])/); return m ? m[0] : c; };
 const TO = () => process.env.CONTACT_TO || 'contact@audit-angel.co.uk';
 const FROM = () => process.env.MAIL_FROM || 'Audit Angel AI <hello@audit-angel.co.uk>';
+const RELAY = () => process.env.CONTACT_RELAY_URL || 'https://cqc.audit-angel.co.uk/api/public/demo-request';
 
 // Small in-memory throttle per IP (best effort on serverless).
 const hits = new Map();
@@ -71,7 +73,8 @@ function send(res, code, obj) { res.statusCode = code; res.setHeader('Content-Ty
 
 module.exports = async (req, res) => {
   if (req.method === 'GET') {
-    return send(res, 200, { telegram: !!(process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID), email: !!process.env.RESEND_API_KEY, to: TO() });
+    const own = !!process.env.RESEND_API_KEY || !!(process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID);
+    return send(res, 200, { mode: own ? 'direct' : 'relay via cqc.audit-angel.co.uk', telegram: !!(process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID), email: !!process.env.RESEND_API_KEY, to: TO() });
   }
   if (req.method !== 'POST') return send(res, 405, { error: 'Method not allowed' });
 
@@ -97,6 +100,22 @@ module.exports = async (req, res) => {
 🏥 ${esc(d.org)} · ${esc(d.sites)} site(s) · ${esc(d.system)}
 ✉️ ${esc(d.email)}
 📱 ${esc(d.phone)}`;
+
+  // No keys in this project: hand the request to the CQC site, which already has the Telegram + Resend keys.
+  if (!process.env.RESEND_API_KEY && !(process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID)) {
+    try {
+      const r = await withTimeout(fetch(RELAY(), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Origin: 'https://ai.audit-angel.co.uk', 'X-AA-Client-IP': ip },
+        body: JSON.stringify(d)
+      }), 12000);
+      const j = await r.json().catch(() => ({}));
+      return send(res, r.ok ? 200 : (r.status === 429 || r.status === 400 ? r.status : 502), r.ok ? { ok: true, via: 'cqc', email: j.email, telegram: j.telegram } : { error: j.error || 'We couldn\u2019t send your request. Please email contact@audit-angel.co.uk.' });
+    } catch (e) {
+      console.error('contact relay', e.message);
+      return send(res, 502, { error: 'We couldn\u2019t send your request. Please email contact@audit-angel.co.uk.' });
+    }
+  }
 
   const [mailOk, tgOk] = await Promise.all([email(d), telegram(tg)]);
   if (!mailOk && !tgOk) return send(res, 502, { error: 'We couldn’t send your request. Please email contact@audit-angel.co.uk.' });
