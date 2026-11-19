@@ -1,6 +1,10 @@
 <!doctype html>
 <html lang="en-GB">
 <head>
+<!-- Google Tag Manager -->
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-M84WJHHC');</script>
+<!-- End Google Tag Manager -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AI Clinical Audit Software for NHS &amp; UK Healthcare | Audit Angel AI</title>
@@ -245,6 +249,7 @@ footer a{color:#BFD9E2}footer a:hover{color:#fff}
 </style>
 </head>
 <body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M84WJHHC" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- HERO -->
 <header class="hero" id="top">
@@ -831,11 +836,47 @@ footer a{color:#BFD9E2}footer a:hover{color:#fff}
     fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)})
       .then(function(r){return r.json().then(function(j){return {ok:r.ok,j:j}})})
       .then(function(x){
-        if(x.ok){f.reset();show('Thank you. We\u2019ll be in touch within one working day to book your call.',true);btn.textContent='Request sent ✓';if(window.gtag)gtag('event','generate_lead')}
-        else{show(x.j.error||'Something went wrong. Please email contact@audit-angel.co.uk.',false);btn.disabled=false;btn.textContent='Book a 20-minute pilot call'}
+        if(x.ok){f.reset();show('Thank you. We\u2019ll be in touch within one working day to book your call.',true);btn.textContent='Request sent ✓';window.dataLayer.push({event:'generate_lead',form_id:'book-form'})}
+        else{window.dataLayer.push({event:'form_submit_error',form_id:'book-form',error:String(x.j.error||x.j&&x.j.status||'unknown').slice(0,100)});show(x.j.error||'Something went wrong. Please email contact@audit-angel.co.uk.',false);btn.disabled=false;btn.textContent='Book a 20-minute pilot call'}
       })
       .catch(function(){show('Network error. Please email contact@audit-angel.co.uk.',false);btn.disabled=false;btn.textContent='Book a 20-minute pilot call'});
   });
+})();
+</script>
+<script>
+/* Analytics: every event goes to dataLayer for GTM */
+(function(){
+  var dl=window.dataLayer=window.dataLayer||[];
+  function push(ev,o){var c={event:ev};for(var k in o||{})c[k]=o[k];dl.push(c)}
+  function sec(el){var s=el.closest('section[id],header,footer,nav,form[id]');if(!s)return 'page';return s.id||s.tagName.toLowerCase()}
+  function txt(el){return (el.getAttribute('aria-label')||el.textContent||el.title||'').replace(/\s+/g,' ').trim().slice(0,80)}
+  var named={'tab-rep':'demo_bulk_report_tab','tab-cases':'demo_bulk_cases_tab','ai-reset':'demo_bulk_reset','co-run':'coauditor_run','co-reset':'coauditor_reset','co-submit':'coauditor_submit','c-all':'demo_bulk_filter','c-hi':'demo_bulk_filter','c-rev':'demo_bulk_filter','c-ok':'demo_bulk_filter'};
+  document.addEventListener('click',function(e){
+    var el=e.target.closest('a,button,[role=tab],summary,#c-all,#c-hi,#c-rev,#c-ok');if(!el)return;
+    var href=el.getAttribute&&el.getAttribute('href')||'',t=txt(el),s=sec(el),base={click_text:t,click_id:el.id||'',click_url:el.href||href,section:s};
+    push('ui_click',base);
+    var ev=named[el.id];
+    if(el.id==='ai-run')ev=/report/i.test(t)?'demo_bulk_view_report':'demo_bulk_run';
+    else if(el.hasAttribute('data-acc'))ev='coauditor_accept_score';
+    else if(el.hasAttribute('data-ev'))ev='coauditor_show_evidence';
+    else if(href.indexOf('#book')===0)ev='cta_book_click';
+    else if(/#(aiapp|demo)$/.test(href)&&s!=='demo')ev='cta_demo_click';
+    else if(/app\.audit-angel\.co\.uk/.test(href))ev='login_click';
+    else if(/certificate|blockmarktech/.test(href))ev='certificate_click';
+    else if(el.matches('nav a,header .lnk'))ev='nav_click';
+    else if(el.tagName==='A'&&el.host&&el.host!==location.host)ev='outbound_click';
+    if(ev)push(ev,base);
+  },true);
+  document.querySelectorAll('#faq details').forEach(function(d){d.addEventListener('toggle',function(){if(d.open)push('faq_open',{question:txt(d.querySelector('summary')),section:'faq'})})});
+  var cf=document.getElementById('co-form');
+  if(cf)cf.addEventListener('change',function(e){var t=e.target;push('coauditor_change_score',{question:t.name||t.id||'',value:String(t.value).slice(0,40),section:'co-auditor'})});
+  var bf=document.getElementById('book-form'),started=false;
+  if(bf){bf.addEventListener('focusin',function(e){if(!started&&e.target.name!=='website'){started=true;push('form_start',{form_id:'book-form',first_field:e.target.name||''})}});
+    bf.addEventListener('submit',function(){push('form_submit_attempt',{form_id:'book-form'})},true)}
+  if('IntersectionObserver' in window){var seen={},io=new IntersectionObserver(function(es){es.forEach(function(x){var id=x.target.id;if(x.isIntersecting&&!seen[id]){seen[id]=1;push('section_view',{section:id});io.unobserve(x.target)}})},{threshold:0.4});
+    document.querySelectorAll('section[id]').forEach(function(n){io.observe(n)})}
+  var marks=[25,50,75,90],hit={};
+  window.addEventListener('scroll',function(){var h=document.documentElement,p=(h.scrollTop+innerHeight)/h.scrollHeight*100;marks.forEach(function(m){if(p>=m&&!hit[m]){hit[m]=1;push('scroll_depth',{percent:m})}})},{passive:true});
 })();
 </script>
 </body>
